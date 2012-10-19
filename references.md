@@ -1,15 +1,14 @@
-Links
-=====
+# Links
+
 - Code
     - [references](http://www.pinboard.in/u:durden/t:pyhou_oil/)
     - [presentation code](https://github.com/durden/python_science_apps)
     - [Landslide](https://github.com/adamzap/landslide)
-
 - Me
     - [@durden20](http://twitter.com/#!/durden20)
     - [http://github.com/durden](http://github.com/durden)
-    - [http://www.lukelee.net](http://www.lukelee.net)
-
+    - [http://durden.codrspace.com](http://codrspace.com/durden)
+    - [http://www.lukelee.me](http://www.lukelee.me)
 - Pycon
     - [hdf5](https://us.pycon.org/2012/schedule/presentation/231/)
     - [pyqt](https://us.pycon.org/2012/schedule/presentation/374/)
