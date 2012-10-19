@@ -1,0 +1,399 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Building full-stack scientific applications in Python</title>
+    <!-- Styles -->
+    
+    <link rel="stylesheet" media="print" href="ribbon/css/print.css">
+    <link rel="stylesheet" media="screen, projection" href="ribbon/css/screen.css">
+    
+    
+    <!-- /Styles -->
+    <!-- Javascripts -->
+    
+    <script type="text/javascript" src="/home/lukelee/.virtualenvs/python_science_apps/local/lib/python2.7/site-packages/landslide/themes/default/js/slides.js"></script>
+    
+    
+    <!-- /Javascripts -->
+</head>
+<body class="list">
+    
+      <!-- slide source: title.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Building full-stack scientific applications in Python</h1></header>
+                
+                
+                    <section class="slide-content"><ul>
+<li><a href="http://durden.github.com/python_science_apps">http://durden.github.com/python_science_apps</a></li>
+</ul>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <p>Links to open for talk:
+- durden.github.com/pyhou_oil
+- https://docs.google.com/spreadsheet/ccc?key=0AnUBhQqsJgE5dDlyQTFwWDkxbmtCbFRqUUp2b0x3bHc&amp;hl=en_US&amp;pli=1#gid=2
+- http://explore.data.gov/Energy-and-Utilities/Monthly-Crude-Oil-Production/nxvx-he4x
+- http://www.pytables.org/moin/HowToUse#GettingStarted</p>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: about.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Luke Lee</h1></header>
+                
+                
+                    <section class="slide-content"><ul>
+<li>Software Engineer at <a href="http://www.blueback-reservoir.com/">Blueback Reservoir</a></li>
+<li>Scientific computing/data mining apps in Python</li>
+<li>Previously embedded C Developer</li>
+<li>Django enthusiast</li>
+</ul>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <ul>
+<li>So who am I and why am I qualified to talk about this?</li>
+<li>I've only been a a developer in the Oil/Gas industry for a year.</li>
+<li>Explain what tools I've learned to start becoming a productive Python
+  developer in the energy business.</li>
+</ul>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: overview.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Overview</h1></header>
+                
+                
+                    <section class="slide-content"><ul>
+<li>Industry problems/applications</li>
+<li>Why Python</li>
+<li>Tools</li>
+<li>Sample app</li>
+</ul></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: why_python.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Why Python</h1></header>
+                
+                
+                    <section class="slide-content"><ul>
+<li>Open source/great tools</li>
+<li>Runs everywhere (Windows/OS X/*nix)</li>
+<li>Scientific community</li>
+<li>Works with other fast languages<ul>
+<li>C/C++/Fortran</li>
+</ul>
+</li>
+<li>Works with other virtual machines/platforms<ul>
+<li>IronPython/Jython</li>
+</ul>
+</li>
+<li>Good packaging tool for easy deployment<ul>
+<li>Pyinstaller</li>
+</ul>
+</li>
+</ul>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <ul>
+<li>Clients ask for it!</li>
+<li>People are solving big problems with Python</li>
+<li>Space, Weather, Model molecultes, etc.</li>
+<li>This is useful b/c lots of massive computing happens in *nix</li>
+<li>environments so good to have same environment for visualzation and</li>
+<li>number crunching/batch processing.</li>
+</ul>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: why_python.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Python tools</h1></header>
+                
+                
+                    <section class="slide-content"><ul>
+<li>Crunch numbers<ul>
+<li>Numpy, scipy, pytables, HDF5</li>
+</ul>
+</li>
+<li>Visualize<ul>
+<li>2/3 D plots (PyQt, PyQwt, Pyside, VTK, mayavi, matplotlib)</li>
+</ul>
+</li>
+<li>Location<ul>
+<li>Esri (ArcPy/geoprocessing)</li>
+<li>SGeMS (geostatical modeling)</li>
+<li>SegyPY (geophysical file format)</li>
+</ul>
+</li>
+</ul>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <ul>
+<li>Lets go back to requirements of our app</li>
+<li>Esri embraced Python as scripting lang for ArcGIS</li>
+</ul>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: app.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Let's build an app!</h1></header>
+                
+                
+                    <section class="slide-content"><ul>
+<li>MVC design pattern</li>
+<li>Django: MVC (or MVT) you've seen before</li>
+<li>Model<ul>
+<li>Sqlite/Django ORM</li>
+</ul>
+</li>
+<li>View<ul>
+<li>HTML/CSS/Javascript</li>
+</ul>
+</li>
+<li>Controller<ul>
+<li>Python glue/Django/Flask</li>
+</ul>
+</li>
+</ul>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <p>Ok so we know Python can handle the problem weve outlined.
+Lots of choices, So how do we use all that with Python tools?
+Lets assume were going to make stand-alone GUI app
+Use MVC b/c we're hip and it works</p>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: app.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Our app</h1></header>
+                
+                
+                    <section class="slide-content"><ul>
+<li>Sample oil data from data.gov</li>
+<li>Model<ul>
+<li>HDF5, PyTables</li>
+</ul>
+</li>
+<li>View<ul>
+<li>PyQt/PyQwt/Pyside</li>
+</ul>
+</li>
+<li>Controller<ul>
+<li>Numpy, Scipy</li>
+</ul>
+</li>
+</ul>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <ul>
+<li>Think back to requirements</li>
+<li>Crunch big numbers, visualization</li>
+<li>Forget location data for now</li>
+</ul>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: model.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Model</h1></header>
+                
+                
+                    <section class="slide-content"><h2>PyTables</h2>
+<ul>
+<li>Read/write HDF5 files</li>
+<li>Massive data sets<ul>
+<li>In-memory optimization</li>
+<li>30 columns and 1 million entries using ~ 13 MB</li>
+</ul>
+</li>
+<li>No concurrency</li>
+<li>Numpy to boost performance (in memory buffers)</li>
+<li>Think ORM for HDF5</li>
+</ul>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <ul>
+<li>Mostly C, not RDBMS replacement</li>
+<li>Great community/developer support</li>
+</ul>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: view.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>View</h1></header>
+                
+                
+                    <section class="slide-content"><h2>PyQt/PyQwt</h2>
+<ul>
+<li>PyQt<ul>
+<li>Python bindings to Qt toolkit</li>
+<li>Cross-platform</li>
+<li>Includes GUI, network, XML, SQL, etc.</li>
+</ul>
+</li>
+<li>PyQwt<ul>
+<li>Built on PyQt/Qwt for science/engineering apps</li>
+<li>Much faster than matplotlib</li>
+<li>Bad Python docs, use C++ docs</li>
+</ul>
+</li>
+</ul></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: controller.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Controller</h1></header>
+                
+                
+                    <section class="slide-content"><ul>
+<li>Numpy<ul>
+<li>Arrays with brains</li>
+<li>Linear algebra</li>
+</ul>
+</li>
+<li>Scipy<ul>
+<li>Stats</li>
+<li>Integration</li>
+<li>Optimization</li>
+</ul>
+</li>
+</ul></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: references.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Links</h1></header>
+                
+                
+                    <section class="slide-content"><ul>
+<li>Code<ul>
+<li><a href="http://www.pinboard.in/u:durden/t:pyhou_oil/">references</a></li>
+<li><a href="https://github.com/durden/python_science_apps">presentation code</a></li>
+<li><a href="https://github.com/adamzap/landslide">Landslide</a></li>
+</ul>
+</li>
+<li>Me<ul>
+<li><a href="http://twitter.com/#!/durden20">@durden20</a></li>
+<li><a href="http://github.com/durden">http://github.com/durden</a></li>
+<li><a href="http://www.lukelee.net">http://www.lukelee.net</a></li>
+</ul>
+</li>
+<li>Pycon<ul>
+<li><a href="https://us.pycon.org/2012/schedule/presentation/231/">hdf5</a></li>
+<li><a href="https://us.pycon.org/2012/schedule/presentation/374/">pyqt</a></li>
+<li><a href="https://us.pycon.org/2012/schedule/presentation/238/">matplotlib</a></li>
+<li><a href="https://us.pycon.org/2012/schedule/presentation/174/">high performance 1</a></li>
+<li><a href="https://us.pycon.org/2012/schedule/presentation/195/">scikit-learn</a></li>
+<li><a href="https://us.pycon.org/2012/schedule/presentation/343/">high performance 2</a></li>
+</ul>
+</li>
+</ul></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+	<!--
+		To hide progress bar from entire presentation
+		just remove “progress” element.
+		-->
+	<div class="progress"><div></div></div>
+	<script src="ribbon/js/script.js"></script>
+	<!-- Copyright © 2010–2012 Vadim Makeev — pepelsbey.net -->
+</body>
+</html>
