@@ -45,8 +45,19 @@ tools to quickly display nice customizable graphs.
 
 ### Requirements
 
-The presentation requires [showoff](https://github.com/schacon/showoff) to
-view.
+The presentation requires [landslide](https://github.com/adamzap/landslide)
+to view.  This can be installed via pip and the included `requirements.txt`
+file (`pip install -r requirements.txt`).
+
+The code samples require the following libraries.  However, there is no
+provided requirements file because these require C-extentions, etc.  Please see
+the associated websites for information about installing on your platform.
+
+- [PyQt](http://www.riverbankcomputing.co.uk/software/pyqt/intro)
+- [PyTables](http://pytables.github.com/)
+- [PyQwt](http://pyqwt.sourceforge.net/)
+- [xlrd](http://pypi.python.org/pypi/xlrd)
+- [numpy](http://numpy.scipy.org/)
 
 ### Live
 
