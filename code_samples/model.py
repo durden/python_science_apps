@@ -12,7 +12,7 @@ import tables
 
 
 HDF5_FILENAME = 'oil_production.h5'
-XLS_FILENAME = './sample_data/PET_CRD_CRPDN_ADC_MBBL_M.xls'
+XLS_FILENAME = './code_samples/sample_data/PET_CRD_CRPDN_ADC_MBBL_M.xls'
 
 
 class OilProductionByMonth(tables.IsDescription):

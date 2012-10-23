@@ -22,7 +22,7 @@ def main():
     app = QtGui.QApplication(sys.argv)
     window = QtGui.QMainWindow()
 
-    window.setWindowTitle('PyHOU Sample App')
+    window.setWindowTitle('Sample App')
     window.setCentralWidget(controller.plot_production_by_month())
     window.show()
 
