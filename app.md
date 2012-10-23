@@ -11,10 +11,10 @@
 
 # Presenter Notes
 
-Ok so we know Python can handle the problem weve outlined.
-Lots of choices, So how do we use all that with Python tools?
-Lets assume were going to make stand-alone GUI app
-Use MVC b/c we're hip and it works
+- Ok so we know Python can handle the problem weve outlined.
+- Lots of choices, So how do we use all that with Python tools?
+- Lets assume were going to make stand-alone GUI app
+- Use MVC b/c we're hip and it works
 
 --------------------------------------------------
 
