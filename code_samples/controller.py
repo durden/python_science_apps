@@ -31,7 +31,6 @@ def main():
     window.setCentralWidget(month_prod_dialog)
 
     state_prod_dialog = view.StateProductionDialog(window)
-    state_prod_dialog.setWindowTitle('Production by State')
 
     for st in model.STATES:
         x_vals, y_vals = model.production_by_state(st)

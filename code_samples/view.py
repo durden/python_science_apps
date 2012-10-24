@@ -47,6 +47,7 @@ class ProductionByMonthDialog(QtGui.QDialog):
         hlayout.addWidget(self._plot)
 
         self.setLayout(hlayout)
+        self.setWindowTitle('Production by month')
 
     def loadData(self, x_vals, y_vals):
         """Load data into plot"""
@@ -100,6 +101,7 @@ class StateProductionDialog(QtGui.QDialog):
         vlayout.addWidget(self._plot)
 
         self.setLayout(vlayout)
+        self.setWindowTitle('Oil production by state')
 
     def loadData(self, state_abbr, x_vals, y_vals):
         """Load data into plot"""
