@@ -12,7 +12,9 @@ import tables
 
 
 HDF5_FILENAME = 'oil_production.h5'
-XLS_FILENAME = './code_samples/sample_data/PET_CRD_CRPDN_ADC_MBBL_M.xls'
+XLS_FILENAME = 'sample_data/PET_CRD_CRPDN_ADC_MBBL_M.xls'
+
+STATES = ['tx', 'ca', 'ak', 'la']
 
 
 class OilProductionByMonth(tables.IsDescription):
@@ -148,6 +150,38 @@ def convert_xls_to_hdf5(xls_filename, hdf5_filename):
     converter = ExcelToHdf5(xls_filename, hdf5_filename)
     converter.convert()
 
+
+def production_by_month():
+    """Get production by month"""
+
+    hdf5 = tables.openFile(HDF5_FILENAME)
+    x_vals = []
+    y_vals = []
+
+    # Read as a python list (could always do this as numpy array as well)
+    for row in hdf5.root.data.production_by_month:
+        y_vals.append(row[0])
+        x_vals.append(row[1])
+
+    return (x_vals, y_vals)
+
+
+def production_by_state(state_abbr):
+    """Get production by state"""
+
+    if state_abbr not in STATES:
+        raise KeyError('Invalid state abbreviation "%s" (%s)' % (state_abbr,
+                                                                 STATES))
+
+    field_name = '%s_barrels' % (state_abbr)
+    hdf5 = tables.openFile(HDF5_FILENAME)
+
+    # Read directly as a numpy array
+    x_vals = hdf5.getNode('/data/production_by_state_month').read(field='date')
+    st_vals = hdf5.getNode('/data/production_by_state_month').read(
+                                                              field=field_name)
+
+    return (x_vals, st_vals)
 
 if __name__ == "__main__":
     convert_xls_to_hdf5(XLS_FILENAME, HDF5_FILENAME)

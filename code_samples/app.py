@@ -10,7 +10,6 @@ from PyQt4 import QtGui
 
 import view
 import model
-import controller
 
 
 def main():
@@ -21,16 +20,24 @@ def main():
 
     app = QtGui.QApplication(sys.argv)
     window = QtGui.QMainWindow()
-
     window.setWindowTitle('Sample App')
-    window.setCentralWidget(controller.plot_production_by_month())
-    window.show()
 
-    state_prod_window = view.StateProductionDialog(
-                                        controller.plot_production_by_state(),
-                                        window)
-    state_prod_window.setWindowTitle('Production by State')
-    state_prod_window.show()
+    month_prod_dialog = view.ProductionByMonthDialog(window)
+
+    x_vals, y_vals = model.production_by_month()
+    month_prod_dialog.loadData(x_vals, y_vals)
+    month_prod_dialog.show()
+
+    window.setCentralWidget(month_prod_dialog)
+
+    state_prod_dialog = view.StateProductionDialog(window)
+    state_prod_dialog.setWindowTitle('Production by State')
+
+    for st in model.STATES:
+        x_vals, y_vals = model.production_by_state(st)
+        state_prod_dialog.loadData(st, x_vals, y_vals)
+
+    state_prod_dialog.show()
 
     sys.exit(app.exec_())
 
