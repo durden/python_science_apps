@@ -9,7 +9,11 @@
     - [http://github.com/durden](http://github.com/durden)
     - [http://durden.codrspace.com](http://codrspace.com/durden)
     - [http://www.lukelee.me](http://www.lukelee.me)
+
+# Presenter Notes
+
 - Pycon
+    - Lots of Pycon 2012 talks (see links on pinboard)
     - [hdf5](https://us.pycon.org/2012/schedule/presentation/231/)
     - [pyqt](https://us.pycon.org/2012/schedule/presentation/374/)
     - [matplotlib](https://us.pycon.org/2012/schedule/presentation/238/)
