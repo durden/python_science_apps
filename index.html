@@ -361,24 +361,79 @@
         </section>
      
       <!-- slide source: controller.md -->
+        <section class="slide has_code">
+            <div>
+                
+                    <header><h1>Controller</h1></header>
+                
+                
+                    <section class="slide-content"><h2>Numpy</h2>
+<div class="highlight"><pre><span class="lineno">1</span> <span class="n">filtered_max</span> <span class="o">=</span> <span class="n">y_vals</span> <span class="o">&lt;=</span> <span class="n">max_val</span>
+<span class="lineno">2</span> <span class="n">filtered_min</span> <span class="o">=</span> <span class="n">y_vals</span> <span class="o">&gt;=</span> <span class="n">min_val</span>
+<span class="lineno">3</span> 
+<span class="lineno">4</span> <span class="n">filtered_x</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">intersect1d</span><span class="p">(</span><span class="n">x_vals</span><span class="p">[</span><span class="n">filtered_min</span><span class="p">],</span> <span class="n">x_vals</span><span class="p">[</span><span class="n">filtered_max</span><span class="p">])</span>
+<span class="lineno">5</span> <span class="n">filtered_y</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">intersect1d</span><span class="p">(</span><span class="n">y_vals</span><span class="p">[</span><span class="n">filtered_min</span><span class="p">],</span> <span class="n">y_vals</span><span class="p">[</span><span class="n">filtered_max</span><span class="p">])</span>
+</pre></div>
+
+<ul>
+<li>Arrays with brains</li>
+</ul>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <ul>
+<li>In-memory</li>
+<li>Written in C/Python</li>
+</ul>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: controller.md -->
         <section class="slide">
             <div>
                 
                     <header><h1>Controller</h1></header>
                 
                 
-                    <section class="slide-content"><ul>
-<li>Numpy<ul>
-<li>Arrays with brains</li>
-<li>Linear algebra</li>
+                    <section class="slide-content"><h2>Pandas</h2>
+<ul>
+<li>Fast read/write for SQL dbs, CSV, HDF5</li>
+<li>'Group by', merge, concatenate large datasets</li>
+<li>Toolkit to unify numpy/matplotlib</li>
+<li>'Replacement' for R</li>
 </ul>
-</li>
-<li>Scipy<ul>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <ul>
+<li>Popular in financial industry</li>
+</ul>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: controller.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Controller</h1></header>
+                
+                
+                    <section class="slide-content"><h2>Scipy</h2>
+<ul>
 <li>Stats</li>
 <li>Integration</li>
-<li>Optimization</li>
-</ul>
-</li>
+<li>Matrices</li>
+<li>Linear algebra</li>
 </ul></section>
                 
                 <div class="presenter_notes">
