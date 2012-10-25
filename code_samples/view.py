@@ -125,7 +125,7 @@ class StateProductionDialog(QtGui.QDialog):
         self._plot.setAxisScaleDraw(Qwt.QwtPlot.xBottom, TimeScaleDraw())
 
         self._la_curve = create_curve('La', QtCore.Qt.green)
-        self._ca_curve = create_curve('Ca', QtCore.Qt.yellow)
+        self._ca_curve = create_curve('Ca', QtCore.Qt.black)
         self._tx_curve = create_curve('Tx', QtCore.Qt.blue)
         self._ak_curve = create_curve('Ak', QtCore.Qt.red)
 
