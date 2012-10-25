@@ -61,9 +61,16 @@ class Controller(QtCore.QObject):
         # FIXME: Should sanitize this data in a real application since it comes
         # directly from user...
 
-        y_vals = y_vals[y_vals <= max_val]
-        y_vals = y_vals[y_vals >= min_val]
-        self._state_prod_dialog.loadData(st, x_vals, y_vals)
+        # Create true arrays to index with
+        filtered_max = y_vals <= max_val
+        filtered_min = y_vals >= min_val
+
+        filtered_x = numpy.intersect1d(x_vals[filtered_min],
+                                       x_vals[filtered_max])
+        filtered_y = numpy.intersect1d(y_vals[filtered_min],
+                                       y_vals[filtered_max])
+
+        self._state_prod_dialog.loadData(st, filtered_x, filtered_y)
 
 def main():
     """main"""
