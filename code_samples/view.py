@@ -72,7 +72,6 @@ class FilterAkProductionDialog(QtGui.QDialog):
         self._max_txtbox = QtGui.QLineEdit('')
 
         vlayout = QtGui.QVBoxLayout()
-        vlayout.setMargin(0)
 
         hlayout = QtGui.QHBoxLayout()
         hlayout.addWidget(self._min_label)
@@ -125,10 +124,15 @@ class StateProductionDialog(QtGui.QDialog):
         # Need custom scale to set labels to month/year
         self._plot.setAxisScaleDraw(Qwt.QwtPlot.xBottom, TimeScaleDraw())
 
-        self._la_curve = None
-        self._ak_curve = None
-        self._ca_curve = None
-        self._tx_curve = None
+        self._la_curve = create_curve('La', QtCore.Qt.green)
+        self._ca_curve = create_curve('Ca', QtCore.Qt.yellow)
+        self._tx_curve = create_curve('Tx', QtCore.Qt.blue)
+        self._ak_curve = create_curve('Ak', QtCore.Qt.red)
+
+        self._la_curve.attach(self._plot)
+        self._ca_curve.attach(self._plot)
+        self._tx_curve.attach(self._plot)
+        self._ak_curve.attach(self._plot)
 
         vlayout = QtGui.QVBoxLayout()
         vlayout.setMargin(0)
@@ -141,31 +145,24 @@ class StateProductionDialog(QtGui.QDialog):
         """Load data into plot"""
 
         if state_abbr == 'la':
-            self._la_curve = create_curve('La', x_vals, y_vals,
-                                          QtCore.Qt.green)
-            self._la_curve.attach(self._plot)
-
+            self._la_curve.setData(x_vals, y_vals)
         elif state_abbr == 'tx':
-            self._tx_curve = create_curve('Tx', x_vals, y_vals, QtCore.Qt.blue)
-            self._tx_curve.attach(self._plot)
+            self._tx_curve.setData(x_vals, y_vals)
         elif state_abbr == 'ak':
-            self._ak_curve = create_curve('Ak', x_vals, y_vals, QtCore.Qt.red)
-            self._ak_curve.attach(self._plot)
+            self._ak_curve.setData(x_vals, y_vals)
         elif state_abbr == 'ca':
-            self._ca_curve = create_curve('Ca', x_vals, y_vals, QtCore.Qt.yellow)
-            self._ca_curve.attach(self._plot)
+            self._ca_curve.setData(x_vals, y_vals)
         else:
             raise ValueError('Invalid state')
 
         self._plot.replot()
 
 
-def create_curve(title, xvals, yvals, color):
+def create_curve(title, color):
     """Helper to create a new curve with given data and color"""
 
     curve = Qwt.QwtPlotCurve(title)
     curve.setPen(QtGui.QPen(color))
-    curve.setData(xvals, yvals)
     curve.setCurveType(Qwt.QwtPlotCurve.Yfx)
     curve.setStyle(Qwt.QwtPlotCurve.Lines)
 

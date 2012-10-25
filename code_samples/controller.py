@@ -19,6 +19,8 @@ class Controller(QtCore.QObject):
     def __init__(self):
         """Setup controller"""
 
+        super(Controller, self).__init__()
+
         self._main_window = QtGui.QMainWindow()
         self._month_prod_dialog = view.ProductionByMonthDialog(
                                                             self._main_window)
@@ -49,10 +51,8 @@ class Controller(QtCore.QObject):
         self._state_prod_dialog.show()
         self._filter_ak_dialog.show()
 
-    def _filter(self, max_val, min_val):
+    def _filter(self, min_val, max_val):
         """Filter AK state values by max value"""
-
-        import pdb;pdb.set_trace()
 
         # Just doing ak here for simplicity
         st = 'ak'
@@ -60,6 +60,7 @@ class Controller(QtCore.QObject):
 
         # FIXME: Should sanitize this data in a real application since it comes
         # directly from user...
+
         y_vals = y_vals[y_vals <= max_val]
         y_vals = y_vals[y_vals >= min_val]
         self._state_prod_dialog.loadData(st, x_vals, y_vals)
