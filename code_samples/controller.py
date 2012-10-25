@@ -19,6 +19,8 @@ class Controller(QtCore.QObject):
     def __init__(self):
         """Setup controller"""
 
+        super(Controller, self).__init__()
+
         self._main_window = QtGui.QMainWindow()
         self._month_prod_dialog = view.ProductionByMonthDialog(
                                                             self._main_window)
@@ -30,6 +32,7 @@ class Controller(QtCore.QObject):
         self._filter_ak_dialog = view.FilterAkProductionDialog(
                                                             self._main_window)
         self._filter_ak_dialog.filter_values.connect(self._filter)
+        self._filter_ak_dialog.reset_values.connect(self._reset)
 
         for st in model.STATES:
             x_vals, y_vals = model.production_by_state(st)
@@ -49,10 +52,18 @@ class Controller(QtCore.QObject):
         self._state_prod_dialog.show()
         self._filter_ak_dialog.show()
 
-    def _filter(self, max_val, min_val):
-        """Filter AK state values by max value"""
+    def _reset(self):
+        """Reset AK state values to originals"""
 
-        import pdb;pdb.set_trace()
+        # Just doing ak here for simplicity
+        st = 'ak'
+        x_vals, y_vals = model.production_by_state('ak')
+        self._state_prod_dialog.loadData(st, x_vals, y_vals)
+        self._filter_ak_dialog.filterBoundaries(numpy.min(y_vals),
+                                                numpy.max(y_vals))
+
+    def _filter(self, min_val, max_val):
+        """Filter AK state values supplied range"""
 
         # Just doing ak here for simplicity
         st = 'ak'
@@ -60,9 +71,17 @@ class Controller(QtCore.QObject):
 
         # FIXME: Should sanitize this data in a real application since it comes
         # directly from user...
-        y_vals = y_vals[y_vals <= max_val]
-        y_vals = y_vals[y_vals >= min_val]
-        self._state_prod_dialog.loadData(st, x_vals, y_vals)
+
+        # Create true arrays to index with
+        filtered_max = y_vals <= max_val
+        filtered_min = y_vals >= min_val
+
+        filtered_x = numpy.intersect1d(x_vals[filtered_min],
+                                       x_vals[filtered_max])
+        filtered_y = numpy.intersect1d(y_vals[filtered_min],
+                                       y_vals[filtered_max])
+
+        self._state_prod_dialog.loadData(st, filtered_x, filtered_y)
 
 def main():
     """main"""

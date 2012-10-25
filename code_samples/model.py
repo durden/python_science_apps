@@ -170,7 +170,7 @@ def production_by_state(state_abbr):
     """Get production by state"""
 
     if state_abbr not in STATES:
-        raise KeyError('Invalid state abbreviation "%s" (%s)' % (state_abbr,
+        raise LookupError('Invalid state abbreviation "%s" (%s)' % (state_abbr,
                                                                  STATES))
 
     field_name = '%s_barrels' % (state_abbr)
