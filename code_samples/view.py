@@ -4,7 +4,7 @@ View portion of sample app
 
 import datetime
 
-from PyQt4 import QtGui, QtCore
+from PyQt4 import Qt, QtGui, QtCore
 import PyQt4.Qwt5 as Qwt
 
 
@@ -60,6 +60,7 @@ class FilterAkProductionDialog(QtGui.QDialog):
     """Dialog to filter ak production data in/out"""
 
     filter_values = QtCore.pyqtSignal(float, float)
+    reset_values = QtCore.pyqtSignal()
 
     def __init__(self, parent):
         """init"""
@@ -83,9 +84,11 @@ class FilterAkProductionDialog(QtGui.QDialog):
         hlayout.addWidget(self._max_txtbox)
         vlayout.addLayout(hlayout)
 
-        btn_flags = (QtGui.QDialogButtonBox.Save)
+        btn_flags = (QtGui.QDialogButtonBox.Save | QtGui.QDialogButtonBox.Reset)
         button_box = QtGui.QDialogButtonBox(btn_flags)
         button_box.accepted.connect(self.save)
+        button_box.button(Qt.QDialogButtonBox.Reset).clicked.connect(
+                                                        self.reset_values.emit)
         vlayout.addWidget(button_box)
 
         self.setLayout(vlayout)

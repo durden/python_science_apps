@@ -32,6 +32,7 @@ class Controller(QtCore.QObject):
         self._filter_ak_dialog = view.FilterAkProductionDialog(
                                                             self._main_window)
         self._filter_ak_dialog.filter_values.connect(self._filter)
+        self._filter_ak_dialog.reset_values.connect(self._reset)
 
         for st in model.STATES:
             x_vals, y_vals = model.production_by_state(st)
@@ -51,8 +52,18 @@ class Controller(QtCore.QObject):
         self._state_prod_dialog.show()
         self._filter_ak_dialog.show()
 
+    def _reset(self):
+        """Reset AK state values to originals"""
+
+        # Just doing ak here for simplicity
+        st = 'ak'
+        x_vals, y_vals = model.production_by_state('ak')
+        self._state_prod_dialog.loadData(st, x_vals, y_vals)
+        self._filter_ak_dialog.filterBoundaries(numpy.min(y_vals),
+                                                numpy.max(y_vals))
+
     def _filter(self, min_val, max_val):
-        """Filter AK state values by max value"""
+        """Filter AK state values supplied range"""
 
         # Just doing ak here for simplicity
         st = 'ak'
