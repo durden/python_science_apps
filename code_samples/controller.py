@@ -1,76 +1,82 @@
+#!/usr/bin/env python
+
 """
-Controller for sample app
+Simple app to demonstrate writing an MVC application for oil industry.
 """
 
-from PyQt4 import QtCore
-import PyQt4.Qwt5 as Qwt
+import sys
 
-import tables
+from PyQt4 import QtGui, QtCore
+import numpy
 
 import view
 import model
 
 
-def plot_production_by_month():
-    """Show data in qwt plot"""
+class Controller(QtCore.QObject):
+    """Controller for sample app"""
 
-    plot = Qwt.QwtPlot()
-    plot.setTitle("Oil Production for USA by Month")
-    plot.setAxisTitle(Qwt.QwtPlot.xBottom, "Date")
-    plot.setAxisTitle(Qwt.QwtPlot.yLeft, "Barrels (in thousands)")
+    def __init__(self):
+        """Setup controller"""
 
-    # Need custom scale to set labels to month/year
-    plot.setAxisScaleDraw(Qwt.QwtPlot.xBottom, view.TimeScaleDraw())
+        self._main_window = QtGui.QMainWindow()
+        self._month_prod_dialog = view.ProductionByMonthDialog(
+                                                            self._main_window)
+        self._state_prod_dialog = view.StateProductionDialog(self._main_window)
 
-    hdf5 = tables.openFile(model.HDF5_FILENAME)
-    x_vals = []
-    y_vals = []
+        x_vals, y_vals = model.production_by_month()
+        self._month_prod_dialog.loadData(x_vals, y_vals)
 
-    for row in hdf5.root.data.production_by_month:
-        y_vals.append(row[0])
-        x_vals.append(row[1])
+        self._filter_ak_dialog = view.FilterAkProductionDialog(
+                                                            self._main_window)
+        self._filter_ak_dialog.filter_values.connect(self._filter)
 
-    curve = Qwt.QwtPlotCurve("Barrels (in thousands)")
-    curve.attach(plot)
-    curve.setData(x_vals, y_vals)
+        for st in model.STATES:
+            x_vals, y_vals = model.production_by_state(st)
+            self._state_prod_dialog.loadData(st, x_vals, y_vals)
 
-    plot.replot()
+            if st == 'ak':
+                self._filter_ak_dialog.filterBoundaries(numpy.min(y_vals),
+                                                        numpy.max(y_vals))
 
-    return plot
+    def launch(self):
+        """Launch controller"""
+
+        self._main_window.setWindowTitle('Sample App')
+        self._main_window.setCentralWidget(self._month_prod_dialog)
+
+        self._month_prod_dialog.show()
+        self._state_prod_dialog.show()
+        self._filter_ak_dialog.show()
+
+    def _filter(self, max_val, min_val):
+        """Filter AK state values by max value"""
+
+        import pdb;pdb.set_trace()
+
+        # Just doing ak here for simplicity
+        st = 'ak'
+        x_vals, y_vals = model.production_by_state(st)
+
+        # FIXME: Should sanitize this data in a real application since it comes
+        # directly from user...
+        y_vals = y_vals[y_vals <= max_val]
+        y_vals = y_vals[y_vals >= min_val]
+        self._state_prod_dialog.loadData(st, x_vals, y_vals)
+
+def main():
+    """main"""
+
+    # Convert data then we can interface with pytables exclusively
+    model.convert_xls_to_hdf5(model.XLS_FILENAME, model.HDF5_FILENAME)
+
+    app = QtGui.QApplication(sys.argv)
+
+    controller = Controller()
+    controller.launch()
+
+    sys.exit(app.exec_())
 
 
-def plot_production_by_state():
-    """Show data in qwt plot"""
-
-    plot = Qwt.QwtPlot()
-    plot.setTitle("Oil Production by State")
-    plot.setAxisTitle(Qwt.QwtPlot.xBottom, "Date")
-    plot.setAxisTitle(Qwt.QwtPlot.yLeft, "Barrels (in thousands)")
-
-    # Need custom scale to set labels to month/year
-    plot.setAxisScaleDraw(Qwt.QwtPlot.xBottom, view.TimeScaleDraw())
-
-    hdf5 = tables.openFile(model.HDF5_FILENAME)
-
-    x_vals = hdf5.root.data.production_by_state_month.cols.date[:]
-    la_vals = hdf5.root.data.production_by_state_month.cols.la_barrels[:]
-    tx_vals = hdf5.root.data.production_by_state_month.cols.tx_barrels[:]
-    ak_vals = hdf5.root.data.production_by_state_month.cols.ak_barrels[:]
-    ca_vals = hdf5.root.data.production_by_state_month.cols.ca_barrels[:]
-
-    curve = view.create_curve('La', x_vals, la_vals, QtCore.Qt.green)
-    curve.attach(plot)
-
-    curve = view.create_curve('Tx', x_vals, tx_vals, QtCore.Qt.blue)
-    curve.attach(plot)
-
-    curve = view.create_curve('Ak', x_vals, ak_vals, QtCore.Qt.red)
-    curve.attach(plot)
-
-    curve = view.create_curve('Ca', x_vals, ca_vals, QtCore.Qt.yellow)
-    curve.attach(plot)
-
-    plot.insertLegend(Qwt.QwtLegend())
-    plot.replot()
-
-    return plot
+if __name__ == "__main__":
+    main()

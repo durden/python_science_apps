@@ -4,7 +4,7 @@ View portion of sample app
 
 import datetime
 
-from PyQt4 import QtGui
+from PyQt4 import QtGui, QtCore
 import PyQt4.Qwt5 as Qwt
 
 
@@ -22,18 +22,142 @@ class TimeScaleDraw(Qwt.QwtScaleDraw):
         return Qwt.QwtText((date.strftime("%b/%Y")))
 
 
-class StateProductionDialog(QtGui.QDialog):
-    """Dialog to plot oil production by state"""
+class ProductionByMonthDialog(QtGui.QDialog):
+    """Dialog to plot oil production by month"""
 
-    def __init__(self, plot, parent):
+    def __init__(self, parent):
+        """init"""
+
+        super(ProductionByMonthDialog, self).__init__(parent)
+
+        self._plot = Qwt.QwtPlot()
+
+        self._plot.setTitle("Oil Production for USA by Month")
+        self._plot.setAxisTitle(Qwt.QwtPlot.xBottom, "Date")
+        self._plot.setAxisTitle(Qwt.QwtPlot.yLeft, "Barrels (in thousands)")
+
+        self._curve = Qwt.QwtPlotCurve("Barrels (in thousands)")
+        self._curve.attach(self._plot)
+
+        # Need custom scale to set labels to month/year
+        self._plot.setAxisScaleDraw(Qwt.QwtPlot.xBottom, TimeScaleDraw())
+
+        hlayout = QtGui.QHBoxLayout()
+        hlayout.setMargin(0)
+        hlayout.addWidget(self._plot)
+
+        self.setLayout(hlayout)
+        self.setWindowTitle('Production by month')
+
+    def loadData(self, x_vals, y_vals):
+        """Load data into plot"""
+
+        self._curve.setData(x_vals, y_vals)
+        self._plot.replot()
+
+
+class FilterAkProductionDialog(QtGui.QDialog):
+    """Dialog to filter ak production data in/out"""
+
+    filter_values = QtCore.pyqtSignal(float, float)
+
+    def __init__(self, parent):
+        """init"""
+
+        super(FilterAkProductionDialog, self).__init__(parent)
+
+        self._min_label = QtGui.QLabel('Min')
+        self._max_label = QtGui.QLabel('Max')
+        self._min_txtbox = QtGui.QLineEdit('')
+        self._max_txtbox = QtGui.QLineEdit('')
+
+        vlayout = QtGui.QVBoxLayout()
+        vlayout.setMargin(0)
+
+        hlayout = QtGui.QHBoxLayout()
+        hlayout.addWidget(self._min_label)
+        hlayout.addWidget(self._min_txtbox)
+        vlayout.addLayout(hlayout)
+
+        hlayout = QtGui.QHBoxLayout()
+        hlayout.addWidget(self._max_label)
+        hlayout.addWidget(self._max_txtbox)
+        vlayout.addLayout(hlayout)
+
+        btn_flags = (QtGui.QDialogButtonBox.Save)
+        button_box = QtGui.QDialogButtonBox(btn_flags)
+        button_box.accepted.connect(self.save)
+        vlayout.addWidget(button_box)
+
+        self.setLayout(vlayout)
+        self.setWindowTitle('Filter Ak production')
+
+    def filterBoundaries(self, min_val, max_val):
+        """Setup the filter boundaries"""
+
+        self._min_txtbox.setText(str(min_val))
+        self._max_txtbox.setText(str(max_val))
+
+    def save(self):
+        """Filter values"""
+
+        # FIXME: Should handle users entering data that cannot be converted to
+        # float here
+        self.filter_values.emit(float(self._min_txtbox.text()),
+                                float(self._max_txtbox.text()))
+
+
+class StateProductionDialog(QtGui.QDialog):
+    """Plot production by state"""
+
+    def __init__(self, parent):
         """init"""
 
         super(StateProductionDialog, self).__init__(parent)
 
-        hlayout = QtGui.QHBoxLayout()
-        hlayout.setMargin(0)
-        hlayout.addWidget(plot)
-        self.setLayout(hlayout)
+        self._plot = Qwt.QwtPlot()
+
+        self._plot.setTitle("Oil Production by State")
+        self._plot.setAxisTitle(Qwt.QwtPlot.xBottom, "Date")
+        self._plot.setAxisTitle(Qwt.QwtPlot.yLeft, "Barrels (in thousands)")
+        self._plot.insertLegend(Qwt.QwtLegend())
+
+        # Need custom scale to set labels to month/year
+        self._plot.setAxisScaleDraw(Qwt.QwtPlot.xBottom, TimeScaleDraw())
+
+        self._la_curve = None
+        self._ak_curve = None
+        self._ca_curve = None
+        self._tx_curve = None
+
+        vlayout = QtGui.QVBoxLayout()
+        vlayout.setMargin(0)
+        vlayout.addWidget(self._plot)
+
+        self.setLayout(vlayout)
+        self.setWindowTitle('Oil production by state')
+
+    def loadData(self, state_abbr, x_vals, y_vals):
+        """Load data into plot"""
+
+        if state_abbr == 'la':
+            self._la_curve = create_curve('La', x_vals, y_vals,
+                                          QtCore.Qt.green)
+            self._la_curve.attach(self._plot)
+
+        elif state_abbr == 'tx':
+            self._tx_curve = create_curve('Tx', x_vals, y_vals, QtCore.Qt.blue)
+            self._tx_curve.attach(self._plot)
+        elif state_abbr == 'ak':
+            self._ak_curve = create_curve('Ak', x_vals, y_vals, QtCore.Qt.red)
+            self._ak_curve.attach(self._plot)
+        elif state_abbr == 'ca':
+            self._ca_curve = create_curve('Ca', x_vals, y_vals, QtCore.Qt.yellow)
+            self._ca_curve.attach(self._plot)
+        else:
+            raise ValueError('Invalid state')
+
+        self._plot.replot()
 
 
 def create_curve(title, xvals, yvals, color):
