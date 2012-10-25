@@ -13,7 +13,7 @@
     <!-- /Styles -->
     <!-- Javascripts -->
     
-    <script type="text/javascript" src="/Users/durden/.virtualenvs/science_apps_talk/lib/python2.7/site-packages/landslide/themes/default/js/slides.js"></script>
+    <script type="text/javascript" src="/home/lukelee/.virtualenvs/python_science_apps/local/lib/python2.7/site-packages/landslide/themes/default/js/slides.js"></script>
     
     
     <!-- /Javascripts -->
@@ -266,17 +266,16 @@
                     <header><h1>Model</h1></header>
                 
                 
-                    <section class="slide-content"><h2>PyTables</h2>
+                    <section class="slide-content"><h2>HDF5</h2>
 <ul>
-<li>Read/write HDF5 files</li>
-<li>Massive data sets<ul>
-<li>In-memory optimization</li>
+<li>Hierarchial format</li>
+<li>Designed for big data<ul>
 <li>30 columns and 1 million entries using ~ 13 MB</li>
 </ul>
 </li>
-<li>No concurrency</li>
-<li>Numpy to boost performance (in memory buffers)</li>
-<li>Think ORM for HDF5</li>
+<li>Fast parellel/random/sequential access</li>
+<li>Portable format</li>
+<li>Easy to discover/crawl structure</li>
 </ul>
 </section>
                 
@@ -284,8 +283,38 @@
                     <section>
                     
                         <ul>
+<li>Usable from lots of languages, C/Java/etc.</li>
 <li>Mostly C, not RDBMS replacement</li>
+</ul>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: model.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Model</h1></header>
+                
+                
+                    <section class="slide-content"><h2>PyTables</h2>
+<ul>
+<li>Read/write HDF5 files</li>
+<li>No concurrency</li>
+<li>Numpy to boost performance (in memory buffers)</li>
+<li>Think ORM for HDF5</li>
+<li><a href="https://github.com/durden/python_science_apps/blob/master/code_samples/model.py#L154">Example</a></li>
+</ul>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <ul>
 <li>Great community/developer support</li>
+<li>Read numpy or Python lists</li>
 </ul>
                     
                     </section>
@@ -314,10 +343,17 @@
 <li>Bad Python docs, use C++ docs</li>
 </ul>
 </li>
-</ul></section>
+</ul>
+</section>
                 
                 <div class="presenter_notes">
                     <section>
+                    
+                        <ul>
+<li>PySide is LGPL, PyQt is GPL</li>
+<li>PyQt/PyQwt can feel a bit awkward at times b/c they wrap C++ code almost
+  directly</li>
+</ul>
                     
                     </section>
                 </div>
