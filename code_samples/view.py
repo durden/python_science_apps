@@ -56,21 +56,55 @@ class ProductionByMonthDialog(QtGui.QDialog):
         self._plot.replot()
 
 
-class FilterTxProductionDialog(QtGui.QDialog):
-    """Dialog to filter tx production data in/out"""
+class FilterAkProductionDialog(QtGui.QDialog):
+    """Dialog to filter ak production data in/out"""
 
-    #filter_str = QtCore.pyqtSignal(str)
-        #self._txtbox.editingFinished.connect(
-                        #lambda: self.filter_str.emit(str(self._txtbox.text())))
+    filter_values = QtCore.pyqtSignal(float, float)
 
-        #vlayout = QtGui.QVBoxLayout()
-        #vlayout.setMargin(0)
-        #vlayout.addWidget(self._label)
-        #vlayout.addWidget(self._txtbox)
+    def __init__(self, parent):
+        """init"""
 
-        #self.setLayout(vlayout)
-    #self._label = QtGui.QLabel('Filter Tx Production')
-    #self._txtbox = QtGui.QLineEdit()
+        super(FilterAkProductionDialog, self).__init__(parent)
+
+        self._min_label = QtGui.QLabel('Min')
+        self._max_label = QtGui.QLabel('Max')
+        self._min_txtbox = QtGui.QLineEdit('')
+        self._max_txtbox = QtGui.QLineEdit('')
+
+        vlayout = QtGui.QVBoxLayout()
+        vlayout.setMargin(0)
+
+        hlayout = QtGui.QHBoxLayout()
+        hlayout.addWidget(self._min_label)
+        hlayout.addWidget(self._min_txtbox)
+        vlayout.addLayout(hlayout)
+
+        hlayout = QtGui.QHBoxLayout()
+        hlayout.addWidget(self._max_label)
+        hlayout.addWidget(self._max_txtbox)
+        vlayout.addLayout(hlayout)
+
+        btn_flags = (QtGui.QDialogButtonBox.Save)
+        button_box = QtGui.QDialogButtonBox(btn_flags)
+        button_box.accepted.connect(self.save)
+        vlayout.addWidget(button_box)
+
+        self.setLayout(vlayout)
+        self.setWindowTitle('Filter Ak production')
+
+    def filterBoundaries(self, min_val, max_val):
+        """Setup the filter boundaries"""
+
+        self._min_txtbox.setText(str(min_val))
+        self._max_txtbox.setText(str(max_val))
+
+    def save(self):
+        """Filter values"""
+
+        # FIXME: Should handle users entering data that cannot be converted to
+        # float here
+        self.filter_values.emit(float(self._min_txtbox.text()),
+                                float(self._max_txtbox.text()))
 
 
 class StateProductionDialog(QtGui.QDialog):
