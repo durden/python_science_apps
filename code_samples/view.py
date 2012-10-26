@@ -231,10 +231,6 @@ class MainWindow(QtGui.QMainWindow):
         filter_action = self._file_menu.addAction('&Filter')
         filter_action.triggered.connect(self.filter_dialog.show)
 
-        # Cannot name an action in OS X with 'Exit' or 'Quit'???
-        quit_action = self._file_menu.addAction('Stop')
-        quit_action.triggered.connect(self.close)
-
     def show(self):
         """Show view"""
 
