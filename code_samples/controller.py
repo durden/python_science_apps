@@ -21,37 +21,29 @@ class Controller(QtCore.QObject):
 
         super(Controller, self).__init__()
 
-        self._main_window = QtGui.QMainWindow()
-        self._month_prod_dialog = view.ProductionByMonthDialog(
-                                                            self._main_window)
-        self._state_prod_dialog = view.StateProductionDialog(self._main_window)
+        self._main_window = view.MainWindow()
+
+        self._main_window.filter_ak_dialog.filter_range.connect(
+                                                            self._filter_range)
+        self._main_window.filter_ak_dialog.filter_max.connect(self._filter_max)
+        self._main_window.filter_ak_dialog.reset_values.connect(self._reset)
+
+    def launch(self):
+        """Load data/start up"""
 
         x_vals, y_vals = model.production_by_month()
-        self._month_prod_dialog.loadData(x_vals, y_vals)
-
-        self._filter_ak_dialog = view.FilterAkProductionDialog(
-                                                            self._main_window)
-        self._filter_ak_dialog.filter_range.connect(self._filter_range)
-        self._filter_ak_dialog.filter_max.connect(self._filter_max)
-        self._filter_ak_dialog.reset_values.connect(self._reset)
+        self._main_window.month_prod_dialog.loadData(x_vals, y_vals)
 
         for st in model.STATES:
             x_vals, y_vals = model.production_by_state(st)
-            self._state_prod_dialog.loadData(st, x_vals, y_vals)
+            self._main_window.state_prod_dialog.loadData(st, x_vals, y_vals)
 
             if st == 'ak':
-                self._filter_ak_dialog.filter_boundaries(numpy.min(y_vals),
-                                                         numpy.max(y_vals))
+                self._main_window.filter_ak_dialog.filter_boundaries(
+                                                            numpy.min(y_vals),
+                                                            numpy.max(y_vals))
 
-    def launch(self):
-        """Launch controller"""
-
-        self._main_window.setWindowTitle('Sample App')
-        self._main_window.setCentralWidget(self._month_prod_dialog)
-
-        self._month_prod_dialog.show()
-        self._state_prod_dialog.show()
-        self._filter_ak_dialog.show()
+        self._main_window.show()
 
     def _get_filter_state_vals(self):
         """Get x/y values for state we are filtering"""
@@ -65,9 +57,9 @@ class Controller(QtCore.QObject):
         """Reset AK state values to originals"""
 
         st, x_vals, y_vals = self._get_filter_state_vals()
-        self._state_prod_dialog.loadData(st, x_vals, y_vals)
-        self._filter_ak_dialog.filter_boundaries(numpy.min(y_vals),
-                                                 numpy.max(y_vals))
+        self._main_window.state_prod_dialog.loadData(st, x_vals, y_vals)
+        self._main_window.filter_ak_dialog.filter_boundaries(numpy.min(y_vals),
+                                                             numpy.max(y_vals))
 
     def _filter_max(self, max_val):
         """Filter Ak state max"""
@@ -80,8 +72,8 @@ class Controller(QtCore.QObject):
         # Create true arrays to index with
         filtered_max = y_vals <= max_val
 
-        self._state_prod_dialog.loadData(st, x_vals[filtered_max],
-                                         y_vals[filtered_max])
+        self._main_window.state_prod_dialog.loadData(st, x_vals[filtered_max],
+                                                     y_vals[filtered_max])
 
     def _filter_range(self, min_val, max_val):
         """Filter AK state values supplied range"""
@@ -100,7 +92,8 @@ class Controller(QtCore.QObject):
         filtered_y = numpy.intersect1d(y_vals[filtered_min],
                                        y_vals[filtered_max])
 
-        self._state_prod_dialog.loadData(st, filtered_x, filtered_y)
+        self._main_window.state_prod_dialog.loadData(st, filtered_x,
+                                                     filtered_y)
 
 def main():
     """main"""

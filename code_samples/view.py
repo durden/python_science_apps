@@ -179,6 +179,37 @@ class StateProductionDialog(QtGui.QDialog):
         self._plot.replot()
 
 
+class MainWindow(QtGui.QMainWindow):
+    """Main"""
+
+    def __init__(self, parent=None):
+        super(MainWindow, self).__init__(parent)
+
+
+        self.month_prod_dialog = ProductionByMonthDialog(self)
+        self.state_prod_dialog = StateProductionDialog(self)
+        self.filter_ak_dialog = FilterAkProductionDialog(self)
+
+        self.month_prod_dialog.setGeometry(self.x(), self.y(), 800, 600)
+        self.state_prod_dialog.setGeometry(self.x(), self.y(), 800, 600)
+
+        self.setWindowTitle('Sample App')
+        self.setCentralWidget(self.month_prod_dialog)
+
+        file_menu = self.menuBar().addMenu('File')
+
+        state_action = file_menu.addAction('Production by &State')
+        state_action.triggered.connect(lambda: self.state_prod_dialog.show())
+
+        filter_action = file_menu.addAction('&Filter')
+        filter_action.triggered.connect(lambda: self.filter_ak_dialog.show())
+
+    def show(self):
+        """Show view"""
+
+        self.month_prod_dialog.show()
+
+
 def create_curve(title, color):
     """Helper to create a new curve with given data and color"""
 
