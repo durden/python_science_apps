@@ -18,7 +18,7 @@
 
 --------------------------------------------------
 
-# Our app
+# Sample app
 
 - Sample oil data from data.gov
 - Model
