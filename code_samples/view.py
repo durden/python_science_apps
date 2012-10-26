@@ -59,7 +59,8 @@ class ProductionByMonthDialog(QtGui.QDialog):
 class FilterAkProductionDialog(QtGui.QDialog):
     """Dialog to filter ak production data in/out"""
 
-    filter_values = QtCore.pyqtSignal(float, float)
+    filter_range = QtCore.pyqtSignal(float, float)
+    filter_max = QtCore.pyqtSignal(float)
     reset_values = QtCore.pyqtSignal()
 
     def __init__(self, parent):
@@ -84,6 +85,13 @@ class FilterAkProductionDialog(QtGui.QDialog):
         hlayout.addWidget(self._max_txtbox)
         vlayout.addLayout(hlayout)
 
+        # NOTE: PyQwt has some nice built-in widgets that matplotlib doesn't
+        self._slider = Qwt.QwtSlider(self, Qt.Qt.Horizontal,
+                                     Qwt.QwtSlider.BottomScale)
+        self._slider.valueChanged.connect(self._slider_changed)
+
+        vlayout.addWidget(self._slider)
+
         btn_flags = (QtGui.QDialogButtonBox.Save | QtGui.QDialogButtonBox.Reset)
         button_box = QtGui.QDialogButtonBox(btn_flags)
         button_box.accepted.connect(self.save)
@@ -93,19 +101,29 @@ class FilterAkProductionDialog(QtGui.QDialog):
 
         self.setLayout(vlayout)
         self.setWindowTitle('Filter Ak production')
+        self.setMinimumHeight(240)
+        self.setMinimumWidth(480)
 
-    def filterBoundaries(self, min_val, max_val):
+    def _slider_changed(self, val):
+        """Slide changed to given val"""
+
+        self.filter_max.emit(val)
+
+    def filter_boundaries(self, min_val, max_val):
         """Setup the filter boundaries"""
 
         self._min_txtbox.setText(str(min_val))
         self._max_txtbox.setText(str(max_val))
+        self._slider.setRange(min_val, max_val)
+        # Show everything by default and filter from max to min
+        self._slider.setValue(max_val)
 
     def save(self):
         """Filter values"""
 
         # FIXME: Should handle users entering data that cannot be converted to
         # float here
-        self.filter_values.emit(float(self._min_txtbox.text()),
+        self.filter_range.emit(float(self._min_txtbox.text()),
                                 float(self._max_txtbox.text()))
 
 

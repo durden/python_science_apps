@@ -31,7 +31,8 @@ class Controller(QtCore.QObject):
 
         self._filter_ak_dialog = view.FilterAkProductionDialog(
                                                             self._main_window)
-        self._filter_ak_dialog.filter_values.connect(self._filter)
+        self._filter_ak_dialog.filter_range.connect(self._filter_range)
+        self._filter_ak_dialog.filter_max.connect(self._filter_max)
         self._filter_ak_dialog.reset_values.connect(self._reset)
 
         for st in model.STATES:
@@ -39,8 +40,8 @@ class Controller(QtCore.QObject):
             self._state_prod_dialog.loadData(st, x_vals, y_vals)
 
             if st == 'ak':
-                self._filter_ak_dialog.filterBoundaries(numpy.min(y_vals),
-                                                        numpy.max(y_vals))
+                self._filter_ak_dialog.filter_boundaries(numpy.min(y_vals),
+                                                         numpy.max(y_vals))
 
     def launch(self):
         """Launch controller"""
@@ -52,22 +53,40 @@ class Controller(QtCore.QObject):
         self._state_prod_dialog.show()
         self._filter_ak_dialog.show()
 
-    def _reset(self):
-        """Reset AK state values to originals"""
+    def _get_filter_state_vals(self):
+        """Get x/y values for state we are filtering"""
 
         # Just doing ak here for simplicity
         st = 'ak'
         x_vals, y_vals = model.production_by_state('ak')
-        self._state_prod_dialog.loadData(st, x_vals, y_vals)
-        self._filter_ak_dialog.filterBoundaries(numpy.min(y_vals),
-                                                numpy.max(y_vals))
+        return (st, x_vals, y_vals)
 
-    def _filter(self, min_val, max_val):
+    def _reset(self):
+        """Reset AK state values to originals"""
+
+        st, x_vals, y_vals = self._get_filter_state_vals()
+        self._state_prod_dialog.loadData(st, x_vals, y_vals)
+        self._filter_ak_dialog.filter_boundaries(numpy.min(y_vals),
+                                                 numpy.max(y_vals))
+
+    def _filter_max(self, max_val):
+        """Filter Ak state max"""
+
+        st, x_vals, y_vals = self._get_filter_state_vals()
+
+        # FIXME: Should sanitize this data in a real application since it comes
+        # directly from user...
+
+        # Create true arrays to index with
+        filtered_max = y_vals <= max_val
+
+        self._state_prod_dialog.loadData(st, x_vals[filtered_max],
+                                         y_vals[filtered_max])
+
+    def _filter_range(self, min_val, max_val):
         """Filter AK state values supplied range"""
 
-        # Just doing ak here for simplicity
-        st = 'ak'
-        x_vals, y_vals = model.production_by_state(st)
+        st, x_vals, y_vals = self._get_filter_state_vals()
 
         # FIXME: Should sanitize this data in a real application since it comes
         # directly from user...
