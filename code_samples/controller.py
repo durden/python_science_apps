@@ -21,12 +21,14 @@ class Controller(QtCore.QObject):
 
         super(Controller, self).__init__()
 
-        self._main_window = view.MainWindow()
+        self._main_window = view.MainWindow(model.STATES)
 
-        self._main_window.filter_ak_dialog.filter_range.connect(
+        self._main_window.filter_dialog.filter_range.connect(
                                                             self._filter_range)
-        self._main_window.filter_ak_dialog.filter_max.connect(self._filter_max)
-        self._main_window.filter_ak_dialog.reset_values.connect(self._reset)
+        self._main_window.filter_dialog.filter_max.connect(self._filter_max)
+        self._main_window.filter_dialog.reset_values.connect(self._reset)
+        self._main_window.filter_dialog.state_selected.connect(
+                                                          self._state_selected)
 
     def launch(self):
         """Load data/start up"""
@@ -38,33 +40,42 @@ class Controller(QtCore.QObject):
             x_vals, y_vals = model.production_by_state(st)
             self._main_window.state_prod_dialog.loadData(st, x_vals, y_vals)
 
-            if st == 'ak':
-                self._main_window.filter_ak_dialog.filter_boundaries(
-                                                            numpy.min(y_vals),
-                                                            numpy.max(y_vals))
-
         self._main_window.show()
 
-    def _get_filter_state_vals(self):
+    def _get_filter_state_vals(self, state):
         """Get x/y values for state we are filtering"""
 
-        # Just doing ak here for simplicity
-        st = 'ak'
-        x_vals, y_vals = model.production_by_state('ak')
-        return (st, x_vals, y_vals)
+        x_vals, y_vals = model.production_by_state(state)
+        return (x_vals, y_vals)
 
-    def _reset(self):
+    def _reset(self, state):
         """Reset AK state values to originals"""
 
-        st, x_vals, y_vals = self._get_filter_state_vals()
-        self._main_window.state_prod_dialog.loadData(st, x_vals, y_vals)
-        self._main_window.filter_ak_dialog.filter_boundaries(numpy.min(y_vals),
+        # Use built-in string, not QString
+        state = str(state)
+
+        x_vals, y_vals = self._get_filter_state_vals(state)
+        self._main_window.state_prod_dialog.loadData(state, x_vals, y_vals)
+        self._main_window.filter_dialog.filter_boundaries(numpy.min(y_vals),
                                                              numpy.max(y_vals))
 
-    def _filter_max(self, max_val):
+    def _state_selected(self, state):
+        """State selected by user"""
+
+        # Use built-in string, not QString
+        state = str(state)
+
+        x_vals, y_vals = self._get_filter_state_vals(state)
+        self._main_window.filter_dialog.filter_boundaries(numpy.min(y_vals),
+                                                             numpy.max(y_vals))
+
+    def _filter_max(self, state, max_val):
         """Filter Ak state max"""
 
-        st, x_vals, y_vals = self._get_filter_state_vals()
+        # Use built-in string, not QString
+        state = str(state)
+
+        x_vals, y_vals = self._get_filter_state_vals(state)
 
         # FIXME: Should sanitize this data in a real application since it comes
         # directly from user...
@@ -72,13 +83,17 @@ class Controller(QtCore.QObject):
         # Create true arrays to index with
         filtered_max = y_vals <= max_val
 
-        self._main_window.state_prod_dialog.loadData(st, x_vals[filtered_max],
+        self._main_window.state_prod_dialog.loadData(state,
+                                                     x_vals[filtered_max],
                                                      y_vals[filtered_max])
 
-    def _filter_range(self, min_val, max_val):
-        """Filter AK state values supplied range"""
+    def _filter_range(self, state, min_val, max_val):
+        """Filter state values supplied range"""
 
-        st, x_vals, y_vals = self._get_filter_state_vals()
+        # Use built-in string, not QString
+        state = str(state)
+
+        x_vals, y_vals = self._get_filter_state_vals(state)
 
         # FIXME: Should sanitize this data in a real application since it comes
         # directly from user...
@@ -92,7 +107,7 @@ class Controller(QtCore.QObject):
         filtered_y = numpy.intersect1d(y_vals[filtered_min],
                                        y_vals[filtered_max])
 
-        self._main_window.state_prod_dialog.loadData(st, filtered_x,
+        self._main_window.state_prod_dialog.loadData(state, filtered_x,
                                                      filtered_y)
 
 def main():
