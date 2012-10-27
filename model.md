@@ -1,10 +1,10 @@
 # Model
 ## HDF5
 
-- Hierarchial format
+- Hierarchical format
 - Designed for big data
     - 30 columns and 1 million entries using ~ 13 MB
-- Fast parellel/random/sequential access
+- Fast parallel/random/sequential access
 - Portable format
 - Easy to discover/crawl structure
 

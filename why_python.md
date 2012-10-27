@@ -14,9 +14,9 @@
 
 - Clients ask for it!
 - People are solving big problems with Python
-- Space, Weather, Model molecultes, etc.
+- Space, Weather, Model molecules, etc.
 - This is useful b/c lots of massive computing happens in *nix
-- environments so good to have same environment for visualzation and
+- environments so good to have same environment for visualization and
 - number crunching/batch processing.
 
 --------------------------------------------------
