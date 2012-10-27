@@ -4,6 +4,7 @@
 
     !python
 
+    # x_vals/y_vals are numpy arrays
     filtered_max = y_vals <= max_val
     filtered_min = y_vals >= min_val
 
@@ -11,6 +12,7 @@
     filtered_y = numpy.intersect1d(y_vals[filtered_min], y_vals[filtered_max])
 
 - Arrays with brains
+- Fast element-wise operations
 
 # Presenter Notes
 

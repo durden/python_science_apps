@@ -3,6 +3,7 @@ View portion of sample app
 """
 
 import datetime
+from itertools import izip_longest
 
 from PyQt4 import Qt, QtGui, QtCore
 import PyQt4.Qwt5 as Qwt
@@ -56,23 +57,35 @@ class ProductionByMonthDialog(QtGui.QDialog):
         self._plot.replot()
 
 
-class FilterAkProductionDialog(QtGui.QDialog):
-    """Dialog to filter ak production data in/out"""
+class FilterStateProductionDialog(QtGui.QDialog):
+    """Dialog to filter production data in/out"""
 
-    filter_values = QtCore.pyqtSignal(float, float)
-    reset_values = QtCore.pyqtSignal()
+    filter_range = QtCore.pyqtSignal(str, float, float)
+    filter_max = QtCore.pyqtSignal(str, float)
+    reset_values = QtCore.pyqtSignal(str)
+    state_selected = QtCore.pyqtSignal(str)
 
-    def __init__(self, parent):
+    def __init__(self, states, parent=None):
         """init"""
 
-        super(FilterAkProductionDialog, self).__init__(parent)
+        super(FilterStateProductionDialog, self).__init__(parent)
+
+        vlayout = QtGui.QVBoxLayout()
+
+        self._state_btns = []
+        hlayout = QtGui.QHBoxLayout()
+        for state in states:
+            btn = QtGui.QRadioButton(state)
+            self._state_btns.append(btn)
+            btn.clicked.connect(self._state_selected)
+            hlayout.addWidget(btn)
+
+        vlayout.addLayout(hlayout)
 
         self._min_label = QtGui.QLabel('Min')
         self._max_label = QtGui.QLabel('Max')
         self._min_txtbox = QtGui.QLineEdit('')
         self._max_txtbox = QtGui.QLineEdit('')
-
-        vlayout = QtGui.QVBoxLayout()
 
         hlayout = QtGui.QHBoxLayout()
         hlayout.addWidget(self._min_label)
@@ -84,35 +97,80 @@ class FilterAkProductionDialog(QtGui.QDialog):
         hlayout.addWidget(self._max_txtbox)
         vlayout.addLayout(hlayout)
 
+        # NOTE: PyQwt has some nice built-in widgets that matplotlib doesn't
+        self._slider = Qwt.QwtSlider(self, Qt.Qt.Horizontal,
+                                     Qwt.QwtSlider.BottomScale)
+        self._slider.valueChanged.connect(self._slider_changed)
+
+        vlayout.addWidget(self._slider)
+
         btn_flags = (QtGui.QDialogButtonBox.Save | QtGui.QDialogButtonBox.Reset)
         button_box = QtGui.QDialogButtonBox(btn_flags)
         button_box.accepted.connect(self.save)
         button_box.button(Qt.QDialogButtonBox.Reset).clicked.connect(
-                                                        self.reset_values.emit)
+                                                                  self._reset)
         vlayout.addWidget(button_box)
 
         self.setLayout(vlayout)
-        self.setWindowTitle('Filter Ak production')
+        self.setWindowTitle('Filter State production')
+        self.setMinimumHeight(240)
+        self.setMinimumWidth(480)
 
-    def filterBoundaries(self, min_val, max_val):
+    def show(self):
+        """Show dialog"""
+
+        super(FilterStateProductionDialog, self).show()
+
+        # Default last one as first checked when shown so others can already
+        # have their signals connected
+        self._state_btns[-1].click()
+
+    def _state_selected(self):
+        """New state radio button clicked"""
+
+        self.state_selected.emit(self._selected_state())
+
+    def _reset(self):
+        """Reset button clicked"""
+
+        self.reset_values.emit(self._selected_state())
+
+    def _slider_changed(self, val):
+        """Slide changed to given val"""
+
+        self.filter_max.emit(self._selected_state(), val)
+
+    def filter_boundaries(self, min_val, max_val):
         """Setup the filter boundaries"""
 
         self._min_txtbox.setText(str(min_val))
         self._max_txtbox.setText(str(max_val))
+        self._slider.setRange(min_val, max_val)
+        # Show everything by default and filter from max to min
+        self._slider.setValue(max_val)
+
+    def _selected_state(self):
+        """Get name of selected state radio button"""
+
+        for btn in self._state_btns:
+            if btn.isChecked():
+                return str(btn.text())
+
 
     def save(self):
         """Filter values"""
 
         # FIXME: Should handle users entering data that cannot be converted to
         # float here
-        self.filter_values.emit(float(self._min_txtbox.text()),
-                                float(self._max_txtbox.text()))
+        self.filter_range.emit(self._selected_state(),
+                               float(self._min_txtbox.text()),
+                               float(self._max_txtbox.text()))
 
 
 class StateProductionDialog(QtGui.QDialog):
     """Plot production by state"""
 
-    def __init__(self, parent):
+    def __init__(self, states, parent=None):
         """init"""
 
         super(StateProductionDialog, self).__init__(parent)
@@ -127,15 +185,13 @@ class StateProductionDialog(QtGui.QDialog):
         # Need custom scale to set labels to month/year
         self._plot.setAxisScaleDraw(Qwt.QwtPlot.xBottom, TimeScaleDraw())
 
-        self._la_curve = create_curve('La', QtCore.Qt.green)
-        self._ca_curve = create_curve('Ca', QtCore.Qt.black)
-        self._tx_curve = create_curve('Tx', QtCore.Qt.blue)
-        self._ak_curve = create_curve('Ak', QtCore.Qt.red)
+        self._curves = {}
+        colors = [QtCore.Qt.green, QtCore.Qt.black, QtCore.Qt.blue,
+                  QtCore.Qt.red]
 
-        self._la_curve.attach(self._plot)
-        self._ca_curve.attach(self._plot)
-        self._tx_curve.attach(self._plot)
-        self._ak_curve.attach(self._plot)
+        for color, st in izip_longest(colors, states, fillvalue=QtCore.Qt.red):
+            self._curves[st] = create_curve(st, color)
+            self._curves[st].attach(self._plot)
 
         vlayout = QtGui.QVBoxLayout()
         vlayout.setMargin(0)
@@ -144,21 +200,41 @@ class StateProductionDialog(QtGui.QDialog):
         self.setLayout(vlayout)
         self.setWindowTitle('Oil production by state')
 
-    def loadData(self, state_abbr, x_vals, y_vals):
+    def loadData(self, state, x_vals, y_vals):
         """Load data into plot"""
 
-        if state_abbr == 'la':
-            self._la_curve.setData(x_vals, y_vals)
-        elif state_abbr == 'tx':
-            self._tx_curve.setData(x_vals, y_vals)
-        elif state_abbr == 'ak':
-            self._ak_curve.setData(x_vals, y_vals)
-        elif state_abbr == 'ca':
-            self._ca_curve.setData(x_vals, y_vals)
-        else:
-            raise ValueError('Invalid state')
-
+        self._curves[state].setData(x_vals, y_vals)
         self._plot.replot()
+
+
+class MainWindow(QtGui.QMainWindow):
+    """Main"""
+
+    def __init__(self, states, parent=None):
+        super(MainWindow, self).__init__(parent)
+
+        self.month_prod_dialog = ProductionByMonthDialog(self)
+        self.state_prod_dialog = StateProductionDialog(states, self)
+        self.filter_dialog = FilterStateProductionDialog(states, self)
+
+        self.month_prod_dialog.setGeometry(self.x(), self.y(), 800, 600)
+        self.state_prod_dialog.setGeometry(self.x(), self.y(), 800, 600)
+
+        self.setWindowTitle('Sample App')
+        self.setCentralWidget(self.state_prod_dialog)
+
+        self._file_menu = self.menuBar().addMenu('File')
+
+        state_action = self._file_menu.addAction('Production by &Month')
+        state_action.triggered.connect(self.month_prod_dialog.show)
+
+        filter_action = self._file_menu.addAction('&Filter')
+        filter_action.triggered.connect(self.filter_dialog.show)
+
+    def show(self):
+        """Show view"""
+
+        self.state_prod_dialog.show()
 
 
 def create_curve(title, color):
