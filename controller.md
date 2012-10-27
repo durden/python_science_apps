@@ -26,7 +26,7 @@
 ## Pandas
 
 - Fast read/write for SQL dbs, CSV, HDF5
-- 'Group by', merge, concatenate large datasets
+- 'Group by', merge, concatenate large data sets
 - Toolkit to unify numpy/matplotlib
 - 'Replacement' for R
 
