@@ -26,15 +26,6 @@
       {% endif %}
     {% endfor %}
     <!-- /Styles -->
-    <!-- Javascripts -->
-    {% if embed %}
-    <script>
-      {{ js.contents }}
-    </script>
-    {% else %}
-    <script type="text/javascript" src="{{ js.path_url }}"></script>
-    {% endif %}
-    <!-- /Javascripts -->
 </head>
 <body class="list">
     {% for slide in slides %}
