@@ -34,15 +34,6 @@
     {% else %}
     <script type="text/javascript" src="{{ js.path_url }}"></script>
     {% endif %}
-    {% for js in user_js %}
-      {% if embed %}
-      <script>
-        {{ js.contents }}
-      </script>
-      {% else %}
-      <script type="text/javascript" src="{{ js.path_url }}"></script>
-      {% endif %}
-    {% endfor %}
     <!-- /Javascripts -->
 </head>
 <body class="list">
