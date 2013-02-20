@@ -1,7 +1,7 @@
 # Links
 
 - Code
-    - [references](http://www.pinboard.in/u:durden/t:pyhou_oil/)
+    - [references](http://www.pinboard.in/u:durden/t:python_science_apps/)
     - [presentation code](https://github.com/durden/python_science_apps)
     - [Landslide](https://github.com/adamzap/landslide)
 - Me
@@ -14,9 +14,7 @@
 
 - Pycon
     - Lots of Pycon 2012 talks (see links on pinboard)
-    - [hdf5](https://us.pycon.org/2012/schedule/presentation/231/)
-    - [pyqt](https://us.pycon.org/2012/schedule/presentation/374/)
-    - [matplotlib](https://us.pycon.org/2012/schedule/presentation/238/)
-    - [high performance 1](https://us.pycon.org/2012/schedule/presentation/174/)
-    - [scikit-learn](https://us.pycon.org/2012/schedule/presentation/195/)
-    - [high performance 2](https://us.pycon.org/2012/schedule/presentation/343/)
+    - Pycon 2013 talks
+    - [Cython vs. SWIG](https://us.pycon.org/2013/schedule/presentation/111/)
+    - [Image processing](https://us.pycon.org/2013/schedule/presentation/107/)
+    - [Numba](https://us.pycon.org/2013/schedule/presentation/130/)
