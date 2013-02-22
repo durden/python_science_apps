@@ -33,6 +33,7 @@ class ProductionByMonthDialog(QtGui.QDialog):
 
         self._plot = Qwt.QwtPlot()
 
+        self._plot.setCanvasBackground(QtCore.Qt.white)
         self._plot.setTitle("Oil Production for USA by Month")
         self._plot.setAxisTitle(Qwt.QwtPlot.xBottom, "Date")
         self._plot.setAxisTitle(Qwt.QwtPlot.yLeft, "Barrels (in thousands)")
@@ -97,7 +98,8 @@ class FilterStateProductionDialog(QtGui.QDialog):
         hlayout.addWidget(self._max_txtbox)
         vlayout.addLayout(hlayout)
 
-        # NOTE: PyQwt has some nice built-in widgets that matplotlib doesn't
+        # NOTE: PyQwt has some nice built-in widgets that matplotlib doesn't,
+        # of course matplotlib has some nice plots PyQwt doesn't :)
         self._slider = Qwt.QwtSlider(self, Qt.Qt.Horizontal,
                                      Qwt.QwtSlider.BottomScale)
         self._slider.valueChanged.connect(self._slider_changed)
@@ -177,6 +179,7 @@ class StateProductionDialog(QtGui.QDialog):
 
         self._plot = Qwt.QwtPlot()
 
+        self._plot.setCanvasBackground(QtCore.Qt.white)
         self._plot.setTitle("Oil Production by State")
         self._plot.setAxisTitle(Qwt.QwtPlot.xBottom, "Date")
         self._plot.setAxisTitle(Qwt.QwtPlot.yLeft, "Barrels (in thousands)")
