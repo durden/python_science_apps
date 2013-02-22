@@ -183,5 +183,6 @@ def production_by_state(state_abbr):
 
     return (x_vals, st_vals)
 
+
 if __name__ == "__main__":
     convert_xls_to_hdf5(XLS_FILENAME, HDF5_FILENAME)
