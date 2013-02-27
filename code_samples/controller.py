@@ -98,7 +98,7 @@ class Controller(QtCore.QObject):
         # FIXME: Should sanitize this data in a real application since it comes
         # directly from user...
 
-        # Create true arrays to index with
+        # Create boolean arrays to index with
         filtered_max = y_vals <= max_val
         filtered_min = y_vals >= min_val
 

@@ -261,6 +261,39 @@
 		}
 	}
 
+    function advanceSlidesAhead(e, currentSlideNumber) {
+        e.preventDefault();
+
+        if (!isListMode() ) {
+            // Inner navigation is "completed" if current slide have
+            // no inner navigation or inner navigation is fully shown
+            innerNavigationCompleted = !slideList[currentSlideNumber].hasInnerNavigation ||
+                -1 === increaseInnerNavigation(currentSlideNumber);
+        } else {
+            // Also inner navigation is always "completed" if we are in
+            // list mode
+            innerNavigationCompleted = true;
+        }
+        // NOTE: First of all check if there is no current slide
+        if (
+            -1 === currentSlideNumber || innerNavigationCompleted
+        ) {
+            currentSlideNumber++;
+            goToSlide(currentSlideNumber);
+            // We must run slideshow only in full mode
+            if (!isListMode()) {
+                runSlideshowIfPresented(currentSlideNumber);
+            }
+        }
+    }
+
+    function advanceSlidesBehind(e, currentSlideNumber) {
+        e.preventDefault();
+
+        currentSlideNumber--;
+        goToSlide(currentSlideNumber);
+    }
+
 	// Event handlers
 
 	window.addEventListener('DOMContentLoaded', function () {
@@ -343,10 +376,7 @@
 			case 37: // Left
 			case 72: // h
 			case 75: // k
-				e.preventDefault();
-
-				currentSlideNumber--;
-				goToSlide(currentSlideNumber);
+                advanceSlidesBehind(e, currentSlideNumber);
 			break;
 
 			case 34: // PgDown
@@ -354,29 +384,7 @@
 			case 39: // Right
 			case 76: // l
 			case 74: // j
-				e.preventDefault();
-
-				if (!isListMode() ) {
-					// Inner navigation is "completed" if current slide have
-					// no inner navigation or inner navigation is fully shown
-					innerNavigationCompleted = !slideList[currentSlideNumber].hasInnerNavigation ||
-						-1 === increaseInnerNavigation(currentSlideNumber);
-				} else {
-					// Also inner navigation is always "completed" if we are in
-					// list mode
-					innerNavigationCompleted = true;
-				}
-				// NOTE: First of all check if there is no current slide
-				if (
-					-1 === currentSlideNumber || innerNavigationCompleted
-				) {
-					currentSlideNumber++;
-					goToSlide(currentSlideNumber);
-					// We must run slideshow only in full mode
-					if (!isListMode()) {
-						runSlideshowIfPresented(currentSlideNumber);
-					}
-				}
+                advanceSlidesAhead(e, currentSlideNumber);
 			break;
 
 			case 36: // Home
@@ -411,7 +419,23 @@
 		}
 	}, false);
 
-	document.addEventListener('click', dispatchSingleSlideMode, false);
+	document.addEventListener('click', function(e) {
+		var currentSlideNumber = getCurrentSlideNumber();
+        if (isListMode() && -1 !== currentSlideNumber) {
+            dispatchSingleSlideMode(e);
+            return;
+        }
+
+        switch (e.button) {
+            case 0:
+                advanceSlidesBehind(e, currentSlideNumber);
+                break;
+            case 1:
+                advanceSlidesAhead(e, currentSlideNumber);
+                break;
+        }
+    }, false);
+
 	document.addEventListener('touchend', dispatchSingleSlideMode, false);
 
 	document.addEventListener('touchstart', function (e) {

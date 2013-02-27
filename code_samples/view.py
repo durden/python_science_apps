@@ -33,6 +33,7 @@ class ProductionByMonthDialog(QtGui.QDialog):
 
         self._plot = Qwt.QwtPlot()
 
+        self._plot.setCanvasBackground(QtCore.Qt.white)
         self._plot.setTitle("Oil Production for USA by Month")
         self._plot.setAxisTitle(Qwt.QwtPlot.xBottom, "Date")
         self._plot.setAxisTitle(Qwt.QwtPlot.yLeft, "Barrels (in thousands)")
@@ -70,51 +71,95 @@ class FilterStateProductionDialog(QtGui.QDialog):
 
         super(FilterStateProductionDialog, self).__init__(parent)
 
-        vlayout = QtGui.QVBoxLayout()
-
-        self._state_btns = []
-        hlayout = QtGui.QHBoxLayout()
-        for state in states:
-            btn = QtGui.QRadioButton(state)
-            self._state_btns.append(btn)
-            btn.clicked.connect(self._state_selected)
-            hlayout.addWidget(btn)
-
-        vlayout.addLayout(hlayout)
+        self._main_layout = QtGui.QVBoxLayout()
 
         self._min_label = QtGui.QLabel('Min')
         self._max_label = QtGui.QLabel('Max')
         self._min_txtbox = QtGui.QLineEdit('')
         self._max_txtbox = QtGui.QLineEdit('')
 
+        # Look QLabel supports rich-text/html!
+        self._filter_by_max_label = QtGui.QLabel('<b>Filter Maximum:</b>')
+        self._filter_range_label = QtGui.QLabel('<b>Filter Range:</b>')
+
+        self._state_btns = []
+
+        # Note that this is not exactly an 'optimal' or 'pretty' UI layout and
+        # the filter widgets somewhat overlap in functionality.  However, it's
+        # useful to see how more than 1 input widget can be used for this
+        # demonstration.
+        self._setup_state_radio_buttons(states)
+        self._setup_filter_by_max_ui()
+        self._setup_filter_by_range_ui()
+        self._setup_button_ui()
+
+        self.setLayout(self._main_layout)
+        self.setWindowTitle('Filter state production')
+        self.setMinimumHeight(240)
+        self.setMinimumWidth(480)
+
+    def _setup_state_radio_buttons(self, states):
+        """Setup state radio buttons"""
+
+        hlayout = QtGui.QHBoxLayout()
+
+        for state in states:
+            btn = QtGui.QRadioButton(state)
+            self._state_btns.append(btn)
+            btn.clicked.connect(self._state_selected)
+            hlayout.addWidget(btn)
+
+        self._main_layout.addLayout(hlayout)
+
+    def _setup_filter_by_max_ui(self):
+        """Setup ui for filtering by maximum"""
+
+        # Visual separator for components
+        frame = QtGui.QFrame()
+        frame.setFrameShape(QtGui.QFrame.HLine)
+        self._main_layout.addWidget(frame)
+
+        # NOTE: PyQwt has some nice built-in widgets that matplotlib doesn't,
+        # of course matplotlib has some nice plots PyQwt doesn't :)
+        self._slider = Qwt.QwtSlider(self, Qt.Qt.Horizontal,
+                                    Qwt.QwtSlider.BottomScale)
+        self._slider.valueChanged.connect(self._slider_changed)
+
+        self._main_layout.addWidget(self._filter_by_max_label)
+        self._main_layout.addWidget(self._slider)
+
+    def _setup_filter_by_range_ui(self):
+        """Setup UI for filtering by range"""
+
+        # Visual separator for components
+        frame = QtGui.QFrame()
+        frame.setFrameShape(QtGui.QFrame.HLine)
+        self._main_layout.addWidget(frame)
+
+        self._main_layout.addWidget(self._filter_range_label)
+
         hlayout = QtGui.QHBoxLayout()
         hlayout.addWidget(self._min_label)
         hlayout.addWidget(self._min_txtbox)
-        vlayout.addLayout(hlayout)
+        self._main_layout.addLayout(hlayout)
 
         hlayout = QtGui.QHBoxLayout()
         hlayout.addWidget(self._max_label)
         hlayout.addWidget(self._max_txtbox)
-        vlayout.addLayout(hlayout)
+        self._main_layout.addLayout(hlayout)
 
-        # NOTE: PyQwt has some nice built-in widgets that matplotlib doesn't
-        self._slider = Qwt.QwtSlider(self, Qt.Qt.Horizontal,
-                                     Qwt.QwtSlider.BottomScale)
-        self._slider.valueChanged.connect(self._slider_changed)
+    def _setup_button_ui(self):
+        """Setup button box"""
 
-        vlayout.addWidget(self._slider)
-
-        btn_flags = (QtGui.QDialogButtonBox.Save | QtGui.QDialogButtonBox.Reset)
+        btn_flags = (QtGui.QDialogButtonBox.Apply | QtGui.QDialogButtonBox.Reset)
         button_box = QtGui.QDialogButtonBox(btn_flags)
-        button_box.accepted.connect(self.save)
+        button_box.button(Qt.QDialogButtonBox.Apply).clicked.connect(
+                                                            self._filter_range)
         button_box.button(Qt.QDialogButtonBox.Reset).clicked.connect(
-                                                                  self._reset)
-        vlayout.addWidget(button_box)
-
-        self.setLayout(vlayout)
-        self.setWindowTitle('Filter State production')
-        self.setMinimumHeight(240)
-        self.setMinimumWidth(480)
+                                                                self._reset)
+        button_box.button(Qt.QDialogButtonBox.Apply).setText('Filter Range')
+        button_box.button(Qt.QDialogButtonBox.Reset).setText('Reset Filters')
+        self._main_layout.addWidget(button_box)
 
     def show(self):
         """Show dialog"""
@@ -157,7 +202,7 @@ class FilterStateProductionDialog(QtGui.QDialog):
                 return str(btn.text())
 
 
-    def save(self):
+    def _filter_range(self):
         """Filter values"""
 
         # FIXME: Should handle users entering data that cannot be converted to
@@ -177,6 +222,7 @@ class StateProductionDialog(QtGui.QDialog):
 
         self._plot = Qwt.QwtPlot()
 
+        self._plot.setCanvasBackground(QtCore.Qt.white)
         self._plot.setTitle("Oil Production by State")
         self._plot.setAxisTitle(Qwt.QwtPlot.xBottom, "Date")
         self._plot.setAxisTitle(Qwt.QwtPlot.yLeft, "Barrels (in thousands)")
