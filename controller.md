@@ -3,16 +3,28 @@
 ## Numpy
 
     !python
+    >>> x = range(10000)
+    >>> %timeit [item + 1 for item in x]
+    1000 loops, best of 3: 437 us per loop
+    >>> x = numpy.arange(10000)
+    >>> %timeit x + 1
+    100000 loops, best of 3: 13.9 us per loop
 
-    # x_vals/y_vals are numpy arrays
-    filtered_max = y_vals <= max_val
-    filtered_min = y_vals >= min_val
+    >>> x[x > 9990]
+    array([9991, 9992, 9993, 9994, 9995, 9996, 9997, 9998, 9999])
+    >>> x > 9990
+    array([False, False, False, ...,  True,  True,  True], dtype=bool)
 
-    filtered_x = numpy.intersect1d(x_vals[filtered_min], x_vals[filtered_max])
-    filtered_y = numpy.intersect1d(y_vals[filtered_min], y_vals[filtered_max])
+    >>> x[:10][0] = 1
+    >>> x[:10]
+    array([1, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+    >>> x[x < 9990][0] = 5
+    >>> x
+    array([   1,    1,    2, ..., 9997, 9998, 9999])
 
 - Arrays with brains
 - Fast element-wise operations
+- Smart memory management/copy semantics
 
 # Presenter Notes
 
@@ -39,6 +51,14 @@
 # Controller
 
 ## Scipy
+
+    !python
+    >>> from scipy import integrate
+    >>> x2 = lambda x: x**2
+    >>> integrate.quad(x2,0.,4.)
+    (21.333333333333332, 2.3684757858670003e-13)
+    >>> print 4.**3/3
+    21.3333333333
 
 - Stats
 - Integration
