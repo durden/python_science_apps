@@ -272,13 +272,16 @@
         </section>
      
       <!-- slide source: model.md -->
-        <section class="slide">
+        <section class="slide has_code">
             <div>
                 
                     <header><h1>Model</h1></header>
                 
                 
                     <section class="slide-content"><h2>PyTables</h2>
+<div class="highlight"><pre><span class="lineno">1</span> <span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="s">&#39;energy&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">ro</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s">&#39;pressure &gt; 10&#39;</span><span class="p">)]</span>
+</pre></div>
+
 <ul>
 <li>Read/write HDF5 files</li>
 <li>No concurrency</li>
@@ -292,6 +295,8 @@
                     <section>
                     
                         <ul>
+<li>Built for big data</li>
+<li>Not a replacement for relational DB, more like companion</li>
 <li>Great community/developer support</li>
 <li>Read numpy or Python lists</li>
 </ul>
