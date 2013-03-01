@@ -169,7 +169,7 @@
                 
                     <section class="slide-content"><ul>
 <li>Crunch numbers<ul>
-<li>Numpy, scipy, pytables, HDF5</li>
+<li>Numpy, pandas, scipy, pytables, HDF5</li>
 </ul>
 </li>
 <li>Visualize<ul>
@@ -231,44 +231,6 @@
 <li>Lots of choices, So how do we use all that with Python tools?</li>
 <li>Lets assume were going to make stand-alone GUI app</li>
 <li>Use MVC b/c we're hip and it works</li>
-</ul>
-                    
-                    </section>
-                </div>
-            </div>
-        </section>
-     
-      <!-- slide source: app.md -->
-        <section class="slide">
-            <div>
-                
-                    <header><h1>Sample app</h1></header>
-                
-                
-                    <section class="slide-content"><ul>
-<li>Sample oil data from data.gov</li>
-<li>Model<ul>
-<li>HDF5, PyTables</li>
-</ul>
-</li>
-<li>View<ul>
-<li>PyQt/PyQwt/Pyside</li>
-</ul>
-</li>
-<li>Controller<ul>
-<li>Numpy, Scipy</li>
-</ul>
-</li>
-</ul>
-</section>
-                
-                <div class="presenter_notes">
-                    <section>
-                    
-                        <ul>
-<li>Think back to requirements</li>
-<li>Crunch big numbers, visualization</li>
-<li>Forget location data for now</li>
 </ul>
                     
                     </section>
@@ -385,17 +347,30 @@
                 
                 
                     <section class="slide-content"><h2>Numpy</h2>
-<div class="highlight"><pre><span class="lineno">1</span> <span class="c"># x_vals/y_vals are numpy arrays</span>
-<span class="lineno">2</span> <span class="n">filtered_max</span> <span class="o">=</span> <span class="n">y_vals</span> <span class="o">&lt;=</span> <span class="n">max_val</span>
-<span class="lineno">3</span> <span class="n">filtered_min</span> <span class="o">=</span> <span class="n">y_vals</span> <span class="o">&gt;=</span> <span class="n">min_val</span>
-<span class="lineno">4</span> 
-<span class="lineno">5</span> <span class="n">filtered_x</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">intersect1d</span><span class="p">(</span><span class="n">x_vals</span><span class="p">[</span><span class="n">filtered_min</span><span class="p">],</span> <span class="n">x_vals</span><span class="p">[</span><span class="n">filtered_max</span><span class="p">])</span>
-<span class="lineno">6</span> <span class="n">filtered_y</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">intersect1d</span><span class="p">(</span><span class="n">y_vals</span><span class="p">[</span><span class="n">filtered_min</span><span class="p">],</span> <span class="n">y_vals</span><span class="p">[</span><span class="n">filtered_max</span><span class="p">])</span>
+<div class="highlight"><pre><span class="lineno"> 1</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
+<span class="lineno"> 2</span> <span class="o">&gt;&gt;&gt;</span> <span class="o">%</span><span class="n">timeit</span> <span class="p">[</span><span class="n">item</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+<span class="lineno"> 3</span> <span class="mi">1000</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">437</span> <span class="n">us</span> <span class="n">per</span> <span class="n">loop</span>
+<span class="lineno"> 4</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
+<span class="lineno"> 5</span> <span class="o">&gt;&gt;&gt;</span> <span class="o">%</span><span class="n">timeit</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="lineno"> 6</span> <span class="mi">100000</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">13.9</span> <span class="n">us</span> <span class="n">per</span> <span class="n">loop</span>
+<span class="lineno"> 7</span> 
+<span class="lineno"> 8</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="p">[</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">9990</span><span class="p">]</span>
+<span class="lineno"> 9</span> <span class="n">array</span><span class="p">([</span><span class="mi">9991</span><span class="p">,</span> <span class="mi">9992</span><span class="p">,</span> <span class="mi">9993</span><span class="p">,</span> <span class="mi">9994</span><span class="p">,</span> <span class="mi">9995</span><span class="p">,</span> <span class="mi">9996</span><span class="p">,</span> <span class="mi">9997</span><span class="p">,</span> <span class="mi">9998</span><span class="p">,</span> <span class="mi">9999</span><span class="p">])</span>
+<span class="lineno">10</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">9990</span>
+<span class="lineno">11</span> <span class="n">array</span><span class="p">([</span><span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span>  <span class="bp">True</span><span class="p">,</span>  <span class="bp">True</span><span class="p">,</span>  <span class="bp">True</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+<span class="lineno">12</span> 
+<span class="lineno">13</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="p">[:</span><span class="mi">10</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="lineno">14</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+<span class="lineno">15</span> <span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
+<span class="lineno">16</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="p">[</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">9990</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="lineno">17</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">x</span>
+<span class="lineno">18</span> <span class="n">array</span><span class="p">([</span>   <span class="mi">1</span><span class="p">,</span>    <span class="mi">1</span><span class="p">,</span>    <span class="mi">2</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mi">9997</span><span class="p">,</span> <span class="mi">9998</span><span class="p">,</span> <span class="mi">9999</span><span class="p">])</span>
 </pre></div>
 
 <ul>
 <li>Arrays with brains</li>
 <li>Fast element-wise operations</li>
+<li>Smart memory management/copy semantics</li>
 </ul>
 </section>
                 
@@ -441,13 +416,21 @@
         </section>
      
       <!-- slide source: controller.md -->
-        <section class="slide">
+        <section class="slide has_code">
             <div>
                 
                     <header><h1>Controller</h1></header>
                 
                 
                     <section class="slide-content"><h2>Scipy</h2>
+<div class="highlight"><pre><span class="lineno">1</span> <span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">integrate</span>
+<span class="lineno">2</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">x2</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+<span class="lineno">3</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">integrate</span><span class="o">.</span><span class="n">quad</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span><span class="mf">0.</span><span class="p">,</span><span class="mf">4.</span><span class="p">)</span>
+<span class="lineno">4</span> <span class="p">(</span><span class="mf">21.333333333333332</span><span class="p">,</span> <span class="mf">2.3684757858670003e-13</span><span class="p">)</span>
+<span class="lineno">5</span> <span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="mf">4.</span><span class="o">**</span><span class="mi">3</span><span class="o">/</span><span class="mi">3</span>
+<span class="lineno">6</span> <span class="mf">21.3333333333</span>
+</pre></div>
+
 <ul>
 <li>Stats</li>
 <li>Integration</li>
@@ -457,6 +440,44 @@
                 
                 <div class="presenter_notes">
                     <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: app_review.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Sample app review</h1></header>
+                
+                
+                    <section class="slide-content"><ul>
+<li>Sample oil data from data.gov</li>
+<li>Model<ul>
+<li>HDF5, PyTables</li>
+</ul>
+</li>
+<li>View<ul>
+<li>PyQt/Pyside, PyQwt</li>
+</ul>
+</li>
+<li>Controller<ul>
+<li>Numpy, Pandas, Scipy</li>
+</ul>
+</li>
+</ul>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <ul>
+<li>Think back to requirements</li>
+<li>Crunch big numbers, visualization</li>
+<li>Forget location data for now</li>
+</ul>
                     
                     </section>
                 </div>
