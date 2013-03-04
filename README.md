@@ -50,8 +50,9 @@ to view.  This can be installed via pip and the included `requirements.txt`
 file (`pip install -r requirements.txt`).
 
 The code samples require the following libraries.  However, there is no
-provided requirements file because these require C-extentions, etc.  Please see
-the associated websites for information about installing on your platform.
+provided requirements file because some of these require C-extentions and
+installation can be somewhat involved.  Please see the associated websites for
+information about installing on your platform.
 
 - [PyQt](http://www.riverbankcomputing.co.uk/software/pyqt/intro)
 - [PyTables](http://pytables.github.com/)
@@ -59,7 +60,21 @@ the associated websites for information about installing on your platform.
 - [xlrd](http://pypi.python.org/pypi/xlrd)
 - [numpy](http://numpy.scipy.org/)
 
-### Live
+### Code Samples
+
+Please review the Requirements section of this document for what packages to
+install.
+
+You can run the main sample application by doing the following:
+    - `cd` into code_samples/
+    - `python controller.py`
+
+There is also a profiling script for [Pandas](http://pandas.pydata.org) that
+can be executed with the following:
+    - `ccd` into code_samples/
+    - `python profiling_pandas_data_import.py`
+
+### Live presentation slides
 
 You can view a live version of the presentation
 [here](http://durden.github.com/python_science_apps).
