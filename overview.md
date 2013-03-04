@@ -1,6 +1,6 @@
 # Overview
 
-- Industry problems/applications
+- Problems
 - Why Python
 - Tools
 - Sample app

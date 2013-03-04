@@ -1,4 +1,4 @@
-# Industry problems
+# Problems to solve 
 
 - Slice/crunch numbers
 - Interactive plotting
