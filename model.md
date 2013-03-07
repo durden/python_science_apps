@@ -18,14 +18,10 @@
 # Model
 ## PyTables
 
-    !python
-    >>> [row['energy'] for row in ro.where('pressure > 10')]
-
 - Read/write HDF5 files
 - No concurrency
 - Numpy to boost performance (in memory buffers)
 - Think ORM for HDF5
-- [Example](https://github.com/durden/python_science_apps/blob/master/code_samples/model.py#L154)
 
 # Presenter Notes
 
@@ -33,3 +29,12 @@
 - Not a replacement for relational DB, more like companion
 - Great community/developer support
 - Read numpy or Python lists
+
+--------------------------------------------------
+
+# Model
+## PyTables
+
+    !python
+    for row in ro.where('pressure > 10'):
+        print row['energy'] 

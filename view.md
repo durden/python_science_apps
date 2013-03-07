@@ -1,15 +1,20 @@
 # View
 
-## PyQt/PyQwt
+## PyQt
 
-- PyQt
-    - Python bindings to Qt toolkit
-    - Cross-platform
-    - Includes GUI, network, XML, SQL, etc.
-- PyQwt
-    - Built on PyQt/Qwt for science/engineering apps
-    - Much smaller/faster than matplotlib
-    - Bad Python docs, use C++ docs
+- Python bindings to Qt toolkit
+- Cross-platform
+- Includes GUI, network, XML, SQL, etc.
+
+--------------------------------------------------
+
+# View
+
+## PyQwt
+
+- For science/engineering apps
+- Much smaller/faster than matplotlib
+- Bad Python docs, use C++ docs
 
 # Presenter Notes
 
