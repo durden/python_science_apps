@@ -8,7 +8,7 @@
 
 body {
 	counter-reset:paging;
-	font:25px/2 'PT Sans', sans-serif;
+	font:40px/2 'PT Sans', sans-serif;
 	}
 
 // Slide
@@ -51,13 +51,13 @@ body {
 	h1 {
 		margin:0 0 27px;
 		color:#666;
-		font:bold 60px/60px 'PT Sans Narrow', sans-serif;
+		font:bold 65px/65px 'PT Sans Narrow', sans-serif;
 		}
 
 	h2 {
 		margin:0 0 17px;
 		color:#666;
-		font:bold 50px/50px 'PT Sans Narrow', sans-serif;
+		font:bold 55px/55px 'PT Sans Narrow', sans-serif;
 		}
 	// Text
 	p {
@@ -83,7 +83,7 @@ body {
 		background:#FAFAA2;
 		color:#000;
 		@include tab-size(4);
-		line-height:1;
+		line-height:1.5;
 		font-family:'PT Mono', monospace;
 		}
 	// Quote
@@ -137,8 +137,8 @@ body {
         padding:0;
         background:none;
         white-space:pre;
-        line-height:22px;
-        font-size: 16px;
+        line-height:32px;
+        font-size: 32px;
 		font-family:'PT Mono', monospace;
         &:before {
             position:absolute;

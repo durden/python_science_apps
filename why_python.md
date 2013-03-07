@@ -26,7 +26,7 @@
 - Crunch numbers
     - Numpy, pandas, scipy, pytables, HDF5
 - Visualize
-    - 2/3 D plots (PyQt, PyQwt, Pyside, VTK, mayavi, matplotlib)
+    - 2/3 D plots (PyQt, PyQwt, matplotlib, VTK, mayavi)
 - Location
     - Esri (ArcPy/geoprocessing)
     - SGeMS (geostatical modeling)

@@ -1,7 +1,5 @@
 # Let's build an app!
 
-- MVC design pattern
-- Django: MVC (or MVT) you've seen before
 - Model
     - Sqlite/Django ORM
 - View

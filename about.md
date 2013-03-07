@@ -1,7 +1,7 @@
 # Luke Lee
 
 - Software Engineer at [Blueback Reservoir](http://www.blueback-reservoir.com/)
-- Scientific computing/data mining apps in Python
+- Scientific computing/data mining apps
 - Previously embedded C Developer
 - Django enthusiast
 
