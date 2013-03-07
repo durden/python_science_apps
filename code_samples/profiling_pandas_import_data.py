@@ -49,13 +49,15 @@ def generate_test_data(column_names, row_count, filename):
 
 
 def file_to_pandas_dataframe(filename):
+    """Read space-separated file into a pandas.DataFrame"""
+
     return pd.read_csv(filename, delim_whitespace=True)
 
 
 def file_to_ordered_dict(filename):
     """
-    Read a space-separated-value file as a dict of columns, keyed by
-    column header.
+    Read a space-separated file as a dict of columns, keyed by
+    column header where each column (dict value) is a standard python list.
     """
 
     columns = collections.OrderedDict()
@@ -83,6 +85,25 @@ def file_to_ordered_dict(filename):
     return columns
 
 
+def file_to_numpy_ordered_dict(filename):
+    """
+    Read a space-separated-value file as a dict of columns, keyed by
+    column header where each column (dict value) is a numpy array.
+    """
+
+    with open(filename, 'r') as file_obj:
+        headers = file_obj.readline().split()
+
+        # unpack=True b/c want data organized as column based arrays, not rows
+        arrs = np.loadtxt(file_obj, unpack=True)
+
+    ret_dict = collections.OrderedDict()
+    for ii, colname in enumerate(headers):
+        ret_dict[colname] = arrs[ii]
+
+    return ret_dict
+
+
 def run_profile(filename, columns, row_count):
     generate_test_data(columns, row_count, filename)
     filesize_bytes = os.path.getsize(filename)
@@ -100,8 +121,13 @@ def run_profile(filename, columns, row_count):
                                 setup='from __main__ import file_to_ordered_dict, filename',
                                 number=100)
 
+    numpy_time = timeit.timeit('file_to_numpy_ordered_dict(filename)',
+                                setup='from __main__ import file_to_numpy_ordered_dict, filename',
+                                number=100)
+
     print 'Read with Pandas: %f seconds' % (pandas_time)
     print 'Read with custom OrderedDict: %f seconds' % (dict_time)
+    print 'Read with numpy.loadtxt: %f seconds' % (numpy_time)
     print 'File size: %d bytes (%.2f kb, %.2f mb)' % (filesize_bytes,
                                                       filesize_kb,
                                                       filesize_mb)
