@@ -73,7 +73,7 @@ table {
 
 body {
   counter-reset: paging;
-  font: 25px/2 "PT Sans", sans-serif; }
+  font: 40px/2 "PT Sans", sans-serif; }
 
 .slide {
   width: 1024px;
@@ -99,11 +99,11 @@ body {
 .slide h1 {
   margin: 0 0 27px;
   color: #666;
-  font: bold 60px/60px "PT Sans Narrow", sans-serif; }
+  font: bold 65px/65px "PT Sans Narrow", sans-serif; }
 .slide h2 {
   margin: 0 0 17px;
   color: #666;
-  font: bold 50px/50px "PT Sans Narrow", sans-serif; }
+  font: bold 55px/55px "PT Sans Narrow", sans-serif; }
 .slide p {
   margin: 0 0 50px; }
 .slide p.note {
@@ -124,7 +124,7 @@ body {
   -moz-tab-size: 4;
   -o-tab-size: 4;
   tab-size: 4;
-  line-height: 1;
+  line-height: 1.5;
   font-family: 'PT Mono', monospace; }
 .slide blockquote {
   font-style: italic; }
@@ -165,8 +165,8 @@ body {
   padding: 0;
   background: none;
   white-space: pre;
-  line-height: 22px;
-  font-size: 16px;
+  line-height: 32px;
+  font-size: 32px;
   font-family: 'PT Mono', monospace; }
   .slide pre:before {
     position: absolute;
