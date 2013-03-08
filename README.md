@@ -66,13 +66,15 @@ Please review the Requirements section of this document for what packages to
 install.
 
 You can run the main sample application by doing the following:
-    - `cd` into code_samples/
-    - `python controller.py`
+
+- `cd` into code_samples/
+- `python controller.py`
 
 There is also a profiling script for [Pandas](http://pandas.pydata.org) that
 can be executed with the following:
-    - `ccd` into code_samples/
-    - `python profiling_pandas_data_import.py`
+
+- `cd` into code_samples/
+- `python profiling_pandas_data_import.py`
 
 ### Live presentation slides
 
