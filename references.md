@@ -1,14 +1,9 @@
 # Links
 
-- Code
-    - [references](http://www.pinboard.in/u:durden/t:python_science_apps/)
-    - [presentation code](https://github.com/durden/python_science_apps)
-    - [Landslide](https://github.com/adamzap/landslide)
-- Me
-    - [@durden20](http://twitter.com/#!/durden20)
-    - [http://github.com/durden](http://github.com/durden)
-    - [http://durden.codrspace.com](http://codrspace.com/durden)
-    - [http://www.lukelee.me](http://www.lukelee.me)
+- [http://bit.ly/python_science_apps](http://bit.ly/python_science_apps)
+- [@durden20](http://twitter.com/#!/durden20)
+- [http://github.com/durden](http://github.com/durden)
+- [http://codrspace.com/durden](http://codrspace.com/durden)
 
 # Presenter Notes
 
