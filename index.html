@@ -158,7 +158,7 @@
                 
                     <section class="slide-content"><ul>
 <li>Crunch numbers<ul>
-<li>Numpy, pandas, scipy, pytables, HDF5</li>
+<li>NumPy, pandas, scipy, pytables, HDF5</li>
 </ul>
 </li>
 <li>Visualize<ul>
@@ -269,7 +269,7 @@
 <ul>
 <li>Read/write HDF5 files</li>
 <li>No concurrency</li>
-<li>Numpy to boost performance (in memory buffers)</li>
+<li>NumPy to boost performance (in memory buffers)</li>
 <li>Think ORM for HDF5</li>
 </ul>
 </section>
@@ -281,7 +281,7 @@
 <li>Built for big data</li>
 <li>Not a replacement for relational DB, more like companion</li>
 <li>Great community/developer support</li>
-<li>Read numpy or Python lists</li>
+<li>Read NumPy or Python lists</li>
 </ul>
                     
                     </section>
@@ -368,7 +368,7 @@
                     <header><h1>Controller</h1></header>
                 
                 
-                    <section class="slide-content"><h2>Numpy</h2>
+                    <section class="slide-content"><h2>NumPy</h2>
 <ul>
 <li>Arrays with brains</li>
 <li>Fast element-wise operations</li>
@@ -396,7 +396,7 @@
                     <header><h1>Controller</h1></header>
                 
                 
-                    <section class="slide-content"><h2>Numpy</h2>
+                    <section class="slide-content"><h2>NumPy</h2>
 <div class="highlight"><pre><span class="lineno">1</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
 <span class="lineno">2</span> <span class="o">&gt;&gt;&gt;</span> <span class="o">%</span><span class="n">timeit</span> <span class="p">[</span><span class="n">item</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
 <span class="lineno">3</span> <span class="mi">1000</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">437</span> <span class="n">us</span> <span class="n">per</span> <span class="n">loop</span>
@@ -421,7 +421,7 @@
                     <header><h1>Controller</h1></header>
                 
                 
-                    <section class="slide-content"><h2>Numpy</h2>
+                    <section class="slide-content"><h2>NumPy</h2>
 <div class="highlight"><pre><span class="lineno">1</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="lineno">2</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">x</span>
 <span class="lineno">3</span> <span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
@@ -447,7 +447,7 @@
                     <header><h1>Controller</h1></header>
                 
                 
-                    <section class="slide-content"><h2>Numpy</h2>
+                    <section class="slide-content"><h2>NumPy</h2>
 <div class="highlight"><pre><span class="lineno">1</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="p">[:</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="lineno">2</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">x</span>
 <span class="lineno">3</span> <span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
@@ -479,7 +479,7 @@
 <ul>
 <li>Fast read/write for SQL dbs, CSV, HDF5</li>
 <li>'Group by' and merge large data sets</li>
-<li>Toolkit to unify numpy/matplotlib</li>
+<li>Toolkit to unify NumPy/matplotlib</li>
 <li>'Replacement' for R</li>
 </ul>
 </section>
@@ -542,8 +542,9 @@
 <li>26 columns</li>
 <li>1000 rows</li>
 <li>pandas.read_csv: 0.56s</li>
-<li>custom OrderedDict (10 lines): 1.37s</li>
-<li>numpy.loadtxt: 3.29s</li>
+<li>numpy.loadtxt: 2.1s</li>
+<li>custom OrderedDict (10 lines): .99ss</li>
+<li>numpy.loadtxt: 2.03s</li>
 </ul></section>
                 
                 <div class="presenter_notes">
@@ -620,7 +621,7 @@
 </ul>
 </li>
 <li>Controller<ul>
-<li>Numpy, Pandas, Scipy</li>
+<li>NumPy, Pandas, Scipy</li>
 </ul>
 </li>
 </ul>
