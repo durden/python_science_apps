@@ -20,7 +20,7 @@
 
 - Read/write HDF5 files
 - No concurrency
-- Numpy to boost performance (in memory buffers)
+- NumPy to boost performance (in memory buffers)
 - Think ORM for HDF5
 
 # Presenter Notes
@@ -28,7 +28,7 @@
 - Built for big data
 - Not a replacement for relational DB, more like companion
 - Great community/developer support
-- Read numpy or Python lists
+- Read NumPy or Python lists
 
 --------------------------------------------------
 

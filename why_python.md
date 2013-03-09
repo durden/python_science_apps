@@ -24,7 +24,7 @@
 # Python tools
 
 - Crunch numbers
-    - Numpy, pandas, scipy, pytables, HDF5
+    - NumPy, pandas, scipy, pytables, HDF5
 - Visualize
     - 2/3 D plots (PyQt, PyQwt, matplotlib, VTK, mayavi)
 - Location

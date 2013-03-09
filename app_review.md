@@ -6,7 +6,7 @@
 - View
     - PyQt/Pyside, PyQwt
 - Controller
-    - Numpy, Pandas, Scipy
+    - NumPy, Pandas, Scipy
 
 # Presenter Notes
 

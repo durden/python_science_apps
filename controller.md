@@ -1,6 +1,6 @@
 # Controller
 
-## Numpy
+## NumPy
 
 - Arrays with brains
 - Fast element-wise operations
@@ -15,7 +15,7 @@
 
 # Controller
 
-## Numpy
+## NumPy
 
     !python
     >>> x = range(10000)
@@ -29,7 +29,7 @@
 
 # Controller
 
-## Numpy
+## NumPy
 
     !python
     >>> x = numpy.arange(3)
@@ -44,7 +44,7 @@
 
 # Controller
 
-## Numpy
+## NumPy
 
     !python
     >>> x[:2][0] = 1
@@ -64,7 +64,7 @@
 
 - Fast read/write for SQL dbs, CSV, HDF5
 - 'Group by' and merge large data sets
-- Toolkit to unify numpy/matplotlib
+- Toolkit to unify NumPy/matplotlib
 - 'Replacement' for R
 
 # Presenter Notes
@@ -103,8 +103,9 @@
 - 26 columns
 - 1000 rows
 - pandas.read_csv: 0.56s
-- custom OrderedDict (10 lines): 1.37s
-- numpy.loadtxt: 3.29s
+- numpy.loadtxt: 2.1s
+- custom OrderedDict (10 lines): .99ss
+- numpy.loadtxt: 2.03s
 
 --------------------------------------------------
 
