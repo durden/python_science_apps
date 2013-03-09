@@ -117,6 +117,14 @@ def run_profile(filename, columns, row_count):
                                 setup='from __main__ import file_to_pandas_dataframe, filename',
                                 number=100)
 
+    # Note we are purposely including the open and reading of header line in
+    # this timing b/c all other methods incur this overhead (including
+    # pandas.read_csv)
+    numpy_loadtxt = "f = open(filename, 'r');f.readline();np.loadtxt(f, unpack=True)"
+    numpy_loadtxt_time = timeit.timeit(numpy_loadtxt,
+                                setup='from __main__ import filename;import numpy as np',
+                                number=100)
+
     dict_time = timeit.timeit('file_to_ordered_dict(filename)',
                                 setup='from __main__ import file_to_ordered_dict, filename',
                                 number=100)
@@ -125,9 +133,11 @@ def run_profile(filename, columns, row_count):
                                 setup='from __main__ import file_to_numpy_ordered_dict, filename',
                                 number=100)
 
+    print '\n\nTimes are cumulative for 100 iterations of code\n\n'
     print 'Read with Pandas: %f seconds' % (pandas_time)
+    print 'Read with just numpy.loadtxt: %f seconds' % (numpy_loadtxt_time)
     print 'Read with custom OrderedDict: %f seconds' % (dict_time)
-    print 'Read with numpy.loadtxt: %f seconds' % (numpy_time)
+    print 'Read with numpy.loadtxt into OrderedDict: %f seconds' % (numpy_time)
     print 'File size: %d bytes (%.2f kb, %.2f mb)' % (filesize_bytes,
                                                       filesize_kb,
                                                       filesize_mb)
