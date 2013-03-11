@@ -11,6 +11,8 @@
 - Controller part is where things get exciting, unique to Python
 - Base of any scientific app in Python
 - Lots of incarnations of an array libraries in Python, NumPy learned from them
+- NumPy is everywhere, lots of tools use it directly to avoid intermediate
+  data types (pandas/pytables)
 - In-memory
 - Written in C/Python
 

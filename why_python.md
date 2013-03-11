@@ -24,19 +24,16 @@
 # Python tools
 
 - Crunch numbers
-    - IPython, NumPy, pandas, scipy, pytables, HDF5
-- Visualize
-    - 2/3 D plots (PyQt, PyQwt, matplotlib, VTK, Mayavi)
+    - IPython, NumPy, pandas, scipy, pytables
+- Visualize 2d/3d
+    - PyQt/PyQwt, matplotlib, VTK, Mayavi
 - Location
     - Esri (ArcPy/geoprocessing)
-    - SGeMS (geostatical modeling)
-    - SegyPY (geophysical file format)
 
 # Presenter Notes
 
 - Not enough time for everything
 - Be aware Enthought makes lots of plotting tools
 - Big overview of some common tools
-- Parsing for SegY oil/gas seismic format
 - Ma-ya-vee
 - Esri embraced Python as scripting lang for ArcGIS
