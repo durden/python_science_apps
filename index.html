@@ -21,10 +21,20 @@
                     <header><h1>Scientific applications in Python</h1></header>
                 
                 
-                    <section class="slide-content"><p><a href="http://durden.github.com/python_science_apps">http://durden.github.com/python_science_apps</a></p></section>
+                    <section class="slide-content"><p><a href="http://durden.github.com/python_science_apps">http://durden.github.com/python_science_apps</a></p>
+</section>
                 
                 <div class="presenter_notes">
                     <section>
+                    
+                        <ul>
+<li>Let's talk about building a desktop app, those still exist right?</li>
+<li>Not all of us are in the cloud yet!</li>
+<li>This is a TOUR, not comprehensive</li>
+<li>Lots of good stuff will be missed</li>
+<li>This isn't a 'how' talk, it's more of a 'where' talk</li>
+<li>Lots of links at the end, worth exploring if you're interested</li>
+</ul>
                     
                     </section>
                 </div>
@@ -41,8 +51,6 @@
                     <section class="slide-content"><ul>
 <li>Software Engineer at <a href="http://www.blueback-reservoir.com/">Blueback Reservoir</a></li>
 <li>Scientific computing/data mining apps</li>
-<li>Previously embedded C Developer</li>
-<li>Django enthusiast</li>
 </ul>
 </section>
                 
@@ -50,8 +58,8 @@
                     <section>
                     
                         <ul>
-<li>So who am I and why am I qualified to talk about this?</li>
-<li>I've only been a a developer in the Oil/Gas industry for a year.</li>
+<li>Writing oil/gas software with Geophysists, mathematicians, geologists</li>
+<li>Embedded C Developer with SSDs</li>
 <li>Explain what tools I've learned to start becoming a productive Python
   developer in the energy business.</li>
 </ul>
@@ -114,19 +122,11 @@
                 
                 
                     <section class="slide-content"><ul>
-<li>Open source/great tools</li>
-<li>Runs everywhere (Windows/OS X/*nix)</li>
 <li>Scientific community</li>
-<li>Works with other fast languages<ul>
-<li>C/C++/Fortran</li>
-</ul>
-</li>
-<li>Works with other virtual machines/platforms<ul>
-<li>IronPython/Jython</li>
-</ul>
-</li>
-<li>Good packaging tool for easy deployment<ul>
-<li>Pyinstaller</li>
+<li>Works with 'fast' languages</li>
+<li>Works with other virtual machines/platforms</li>
+<li>Good packaging tools for easy deployment<ul>
+<li>Pyinstaller, py2exe</li>
 </ul>
 </li>
 </ul>
@@ -136,12 +136,20 @@
                     <section>
                     
                         <ul>
+<li>Focus on reasons not usually talked about</li>
+<li>Obvious:<ul>
+<li>Open source/great tools</li>
+<li>Runs everywhere (Windows/OS X/*nix)</li>
+</ul>
+</li>
+<li>Works with C/C++/Fortran</li>
+<li>Other VMs/platforms<ul>
+<li>IronPython/Jython</li>
+</ul>
+</li>
 <li>Clients ask for it!</li>
 <li>People are solving big problems with Python</li>
-<li>Space, Weather, Model molecules, etc.</li>
-<li>This is useful b/c lots of massive computing happens in *nix</li>
-<li>environments so good to have same environment for visualization and</li>
-<li>number crunching/batch processing.</li>
+<li>Space, Weather, Model molecules</li>
 </ul>
                     
                     </section>
@@ -158,17 +166,15 @@
                 
                     <section class="slide-content"><ul>
 <li>Crunch numbers<ul>
-<li>Numpy, pandas, scipy, pytables, HDF5</li>
+<li>IPython, NumPy, pandas, scipy, pytables</li>
 </ul>
 </li>
-<li>Visualize<ul>
-<li>2/3 D plots (PyQt, PyQwt, matplotlib, VTK, mayavi)</li>
+<li>Visualize 2d/3d<ul>
+<li>PyQt/PyQwt, matplotlib, VTK, Mayavi</li>
 </ul>
 </li>
 <li>Location<ul>
 <li>Esri (ArcPy/geoprocessing)</li>
-<li>SGeMS (geostatical modeling)</li>
-<li>SegyPY (geophysical file format)</li>
 </ul>
 </li>
 </ul>
@@ -178,7 +184,10 @@
                     <section>
                     
                         <ul>
-<li>Lets go back to requirements of our app</li>
+<li>Not enough time for everything</li>
+<li>Be aware Enthought makes lots of plotting tools</li>
+<li>Big overview of some common tools</li>
+<li>Ma-ya-vee</li>
 <li>Esri embraced Python as scripting lang for ArcGIS</li>
 </ul>
                     
@@ -187,7 +196,7 @@
             </div>
         </section>
      
-      <!-- slide source: app.md -->
+      <!-- slide source: app_django.md -->
         <section class="slide">
             <div>
                 
@@ -215,9 +224,50 @@
                     
                         <ul>
 <li>Ok so we know Python can handle the problem we've outlined.</li>
+<li>I'm a Django enthusiast</li>
+<li>Lots of Django devs here so let's make an analogy</li>
+</ul>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: app_overview.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Sample app review</h1></header>
+                
+                
+                    <section class="slide-content"><ul>
+<li>Model<ul>
+<li>HDF5/PyTables</li>
+</ul>
+</li>
+<li>View<ul>
+<li>PyQt/Pyside/PyQwt</li>
+</ul>
+</li>
+<li>Controller<ul>
+<li>NumPy/Pandas/Scipy</li>
+</ul>
+</li>
+</ul>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <ul>
 <li>Lots of choices, So how do we use all that with Python tools?</li>
-<li>Lets assume were going to make stand-alone GUI app</li>
-<li>Use MVC b/c we're hip and it works</li>
+<li>Translate that MVC into desktop world</li>
+<li>Think back to requirements<ul>
+<li>Crunch big numbers, visualization</li>
+<li>Forget location data for now</li>
+</ul>
+</li>
+<li>Wrote sample app to try out, see links at end</li>
 </ul>
                     
                     </section>
@@ -269,7 +319,7 @@
 <ul>
 <li>Read/write HDF5 files</li>
 <li>No concurrency</li>
-<li>Numpy to boost performance (in memory buffers)</li>
+<li>NumPy to boost performance (in memory buffers)</li>
 <li>Think ORM for HDF5</li>
 </ul>
 </section>
@@ -281,7 +331,7 @@
 <li>Built for big data</li>
 <li>Not a replacement for relational DB, more like companion</li>
 <li>Great community/developer support</li>
-<li>Read numpy or Python lists</li>
+<li>Read NumPy or Python lists</li>
 </ul>
                     
                     </section>
@@ -368,7 +418,7 @@
                     <header><h1>Controller</h1></header>
                 
                 
-                    <section class="slide-content"><h2>Numpy</h2>
+                    <section class="slide-content"><h2>NumPy</h2>
 <ul>
 <li>Arrays with brains</li>
 <li>Fast element-wise operations</li>
@@ -380,6 +430,9 @@
                     <section>
                     
                         <ul>
+<li>Controller part is where things get exciting, unique to Python</li>
+<li>Base of any scientific app in Python</li>
+<li>Lots of incarnations of an array libraries in Python, NumPy learned from them</li>
 <li>In-memory</li>
 <li>Written in C/Python</li>
 </ul>
@@ -396,7 +449,7 @@
                     <header><h1>Controller</h1></header>
                 
                 
-                    <section class="slide-content"><h2>Numpy</h2>
+                    <section class="slide-content"><h2>NumPy</h2>
 <div class="highlight"><pre><span class="lineno">1</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
 <span class="lineno">2</span> <span class="o">&gt;&gt;&gt;</span> <span class="o">%</span><span class="n">timeit</span> <span class="p">[</span><span class="n">item</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
 <span class="lineno">3</span> <span class="mi">1000</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">437</span> <span class="n">us</span> <span class="n">per</span> <span class="n">loop</span>
@@ -404,10 +457,15 @@
 <span class="lineno">5</span> <span class="o">&gt;&gt;&gt;</span> <span class="o">%</span><span class="n">timeit</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
 <span class="lineno">6</span> <span class="mi">100000</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">13.9</span> <span class="n">us</span> <span class="n">per</span> <span class="n">loop</span>
 </pre></div>
+
 </section>
                 
                 <div class="presenter_notes">
                     <section>
+                    
+                        <ul>
+<li>Outsource loops to NumPy/C</li>
+</ul>
                     
                     </section>
                 </div>
@@ -421,7 +479,7 @@
                     <header><h1>Controller</h1></header>
                 
                 
-                    <section class="slide-content"><h2>Numpy</h2>
+                    <section class="slide-content"><h2>NumPy</h2>
 <div class="highlight"><pre><span class="lineno">1</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="lineno">2</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">x</span>
 <span class="lineno">3</span> <span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
@@ -430,10 +488,16 @@
 <span class="lineno">6</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">1</span>
 <span class="lineno">7</span> <span class="n">array</span><span class="p">([</span><span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span>  <span class="bp">True</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
 </pre></div>
+
 </section>
                 
                 <div class="presenter_notes">
                     <section>
+                    
+                        <ul>
+<li>Boolean indexing, creates new array</li>
+<li>Operations can be chained to build complex 'queries'</li>
+</ul>
                     
                     </section>
                 </div>
@@ -447,7 +511,7 @@
                     <header><h1>Controller</h1></header>
                 
                 
-                    <section class="slide-content"><h2>Numpy</h2>
+                    <section class="slide-content"><h2>NumPy</h2>
 <div class="highlight"><pre><span class="lineno">1</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="p">[:</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="lineno">2</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">x</span>
 <span class="lineno">3</span> <span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
@@ -458,10 +522,53 @@
 
 <ul>
 <li>copy vs. view</li>
-</ul></section>
+</ul>
+</section>
                 
                 <div class="presenter_notes">
                     <section>
+                    
+                        <ul>
+<li>Be mindful of how you index</li>
+<li>NumPy is designed for big data</li>
+<li>Tries to avoid copying</li>
+</ul>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: controller.md -->
+        <section class="slide has_code">
+            <div>
+                
+                    <header><h1>Controller</h1></header>
+                
+                
+                    <section class="slide-content"><h2>NumPy</h2>
+<div class="highlight"><pre><span class="lineno">1</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">rand_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="lineno">2</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">numpy</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s">&#39;test.out&#39;</span><span class="p">,</span>
+<span class="lineno">3</span>                   <span class="n">rand_arr</span><span class="p">,</span>
+<span class="lineno">4</span>                   <span class="n">delimiter</span><span class="o">=</span><span class="s">&#39; &#39;</span><span class="p">,</span>
+<span class="lineno">5</span>                   <span class="n">fmt</span><span class="o">=</span><span class="s">&#39;</span><span class="si">%1.5f</span><span class="s">&#39;</span><span class="p">,</span>
+<span class="lineno">6</span>                   <span class="n">header</span><span class="o">=</span><span class="s">&#39;a b&#39;</span><span class="p">,</span>
+<span class="lineno">7</span>                   <span class="n">comments</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+</pre></div>
+
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <ul>
+<li>Create 2D array of random float data</li>
+<li>NumPy is full of useful tools; rand/savetxt</li>
+<li>Can save binary data; only viewable with numpy though</li>
+<li>Saving to txt makes data readable for everyone</li>
+<li>Remember, too many ASCII files? Here it is again!</li>
+<li>Keep this in mind, we'll look at it in a bit</li>
+</ul>
                     
                     </section>
                 </div>
@@ -479,7 +586,7 @@
 <ul>
 <li>Fast read/write for SQL dbs, CSV, HDF5</li>
 <li>'Group by' and merge large data sets</li>
-<li>Toolkit to unify numpy/matplotlib</li>
+<li>Toolkit to unify NumPy/matplotlib</li>
 <li>'Replacement' for R</li>
 </ul>
 </section>
@@ -489,6 +596,13 @@
                     
                         <ul>
 <li>Popular in financial industry</li>
+<li>R is open source statistical language</li>
+<li>Built on numpy</li>
+<li>2 main data structures<ul>
+<li>DataSeries -&gt; 1d array with labels</li>
+<li>DataFrame -&gt; 2d array like SQL table/spreadsheet</li>
+</ul>
+</li>
 </ul>
                     
                     </section>
@@ -504,25 +618,23 @@
                 
                 
                     <section class="slide-content"><h2>Pandas</h2>
-<div class="highlight"><pre><span class="lineno"> 1</span> <span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="lineno"> 2</span> <span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
-<span class="lineno"> 3</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">rand_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="lineno"> 4</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s">&#39;test.out&#39;</span><span class="p">,</span>
-<span class="lineno"> 5</span>                <span class="n">rand_arr</span><span class="p">,</span>
-<span class="lineno"> 6</span>                <span class="n">delimiter</span><span class="o">=</span><span class="s">&#39; &#39;</span><span class="p">,</span>
-<span class="lineno"> 7</span>                <span class="n">fmt</span><span class="o">=</span><span class="s">&#39;</span><span class="si">%1.5f</span><span class="s">&#39;</span><span class="p">,</span>
-<span class="lineno"> 8</span>                <span class="n">header</span><span class="o">=</span><span class="s">&#39;a b&#39;</span><span class="p">,</span>
-<span class="lineno"> 9</span>                <span class="n">comments</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">)</span>
-<span class="lineno">10</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">&#39;test.out&#39;</span><span class="p">,</span>
-<span class="lineno">11</span>                 <span class="n">delim_whitespace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="lineno">12</span>         <span class="n">a</span>        <span class="n">b</span>
-<span class="lineno">13</span> <span class="mi">0</span>  <span class="mf">0.93954</span>  <span class="mf">0.74496</span>
-<span class="lineno">14</span> <span class="mi">1</span>  <span class="mf">0.12518</span>  <span class="mf">0.17269</span>
+<div class="highlight"><pre><span class="lineno">1</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">&#39;test.out&#39;</span><span class="p">,</span>
+<span class="lineno">2</span>                     <span class="n">delim_whitespace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="lineno">3</span>         <span class="n">a</span>        <span class="n">b</span>
+<span class="lineno">4</span> <span class="mi">0</span>  <span class="mf">0.93954</span>  <span class="mf">0.74496</span>
+<span class="lineno">5</span> <span class="mi">1</span>  <span class="mf">0.12518</span>  <span class="mf">0.17269</span>
 </pre></div>
+
 </section>
                 
                 <div class="presenter_notes">
                     <section>
+                    
+                        <ul>
+<li>read_csv reads in a DataFame</li>
+<li>Notice it handles our header line, pretty prints, labels</li>
+<li>Pandas excels and got this right; easy to get existing data in</li>
+</ul>
                     
                     </section>
                 </div>
@@ -542,12 +654,21 @@
 <li>26 columns</li>
 <li>1000 rows</li>
 <li>pandas.read_csv: 0.56s</li>
-<li>custom OrderedDict (10 lines): 1.37s</li>
-<li>numpy.loadtxt: 3.29s</li>
-</ul></section>
+<li>numpy.loadtxt: 2.1s</li>
+<li>custom OrderedDict (10 lines): .99s</li>
+<li>numpy.loadtxt: 2.03s</li>
+</ul>
+</section>
                 
                 <div class="presenter_notes">
                     <section>
+                    
+                        <ul>
+<li>Pandas doesn't just get data in easily; it's fast!</li>
+<li>Lots of recent work to optimize this even more</li>
+<li>Pandas heavily optimizes this with Cython</li>
+<li>Cython is outside of scope, but it's a way to speed up Python with data types</li>
+</ul>
                     
                     </section>
                 </div>
@@ -567,10 +688,15 @@
 <li>Integration</li>
 <li>Matrices</li>
 <li>Linear algebra</li>
-</ul></section>
+</ul>
+</section>
                 
                 <div class="presenter_notes">
                     <section>
+                    
+                        <ul>
+<li>Scipy is huge collection of tools</li>
+</ul>
                     
                     </section>
                 </div>
@@ -592,10 +718,15 @@
 <span class="lineno">5</span> <span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="mf">4.</span><span class="o">**</span><span class="mi">3</span><span class="o">/</span><span class="mi">3</span>
 <span class="lineno">6</span> <span class="mf">21.3333333333</span>
 </pre></div>
+
 </section>
                 
                 <div class="presenter_notes">
                     <section>
+                    
+                        <ul>
+<li>Wish I knew about this in my calculus classes!</li>
+</ul>
                     
                     </section>
                 </div>
@@ -610,19 +741,27 @@
                 
                 
                     <section class="slide-content"><ul>
-<li>Sample oil data from data.gov</li>
 <li>Model<ul>
 <li>HDF5, PyTables</li>
 </ul>
 </li>
 <li>View<ul>
-<li>PyQt/Pyside, PyQwt</li>
+<li>PyQt/Pyside/PyQwt</li>
 </ul>
 </li>
-<li>Controller<ul>
-<li>Numpy, Pandas, Scipy</li>
+<li>
+<p>Controller</p>
+<ul>
+<li>NumPy/Pandas/Scipy</li>
 </ul>
 </li>
+<li>
+<p>Sample oil data from data.gov</p>
+</li>
+<li>
+<p><a href="http://bit.ly/python_science_apps">http://bit.ly/python_science_apps</a></p>
+</li>
+<li>Hack on!</li>
 </ul>
 </section>
                 
@@ -630,9 +769,11 @@
                     <section>
                     
                         <ul>
-<li>Think back to requirements</li>
-<li>Crunch big numbers, visualization</li>
-<li>Forget location data for now</li>
+<li>Lots of tools introduced in short time, let's review</li>
+<li>Created a sample app with problems to fix</li>
+<li>Best way to learn is to have a problem and try to fix it</li>
+<li>Go fork project and practice</li>
+<li>Go to 'Practice' section</li>
 </ul>
                     
                     </section>
@@ -659,6 +800,8 @@
                     <section>
                     
                         <ul>
+<li>Lots of links, worth exploring if you're interested</li>
+<li>Several good companies in the space, Enthought and Continuum Analytics</li>
 <li>Pycon<ul>
 <li>Lots of Pycon 2012 talks (see links on pinboard)</li>
 <li>Pycon 2013 talks</li>
