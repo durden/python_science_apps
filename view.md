@@ -5,6 +5,7 @@
 - Python bindings to Qt toolkit
 - Cross-platform
 - Includes GUI, network, XML, SQL, etc.
+- Pyside for LGPL
 
 # Presenter Notes
 
@@ -26,5 +27,6 @@
 
 - Stable, but not a lot of dev. activity
 - Recommending use of pyqtgraph for future
+- Not compatible with PySide?
 - PyQt/PyQwt can feel a bit awkward at times b/c they wrap C++ code with
   automated tools

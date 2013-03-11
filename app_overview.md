@@ -1,9 +1,9 @@
-# Sample app review
+# Sample app overview
 
 - Model
     - HDF5/PyTables
 - View
-    - PyQt/Pyside/PyQwt
+    - PyQt/PyQwt
 - Controller
     - NumPy/Pandas/Scipy
 
