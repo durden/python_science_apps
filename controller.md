@@ -149,9 +149,9 @@
 - 26 columns
 - 1000 rows
 - pandas.read_csv: 0.56s
-- numpy.loadtxt: 2.1s
-- custom OrderedDict (10 lines): .99s
-- numpy.loadtxt: 2.03s
+- numpy.loadtxt: 2.35s
+- custom OrderedDict (10 lines): 1.4s
+- numpy.loadtxt into OrderedDict: 2.65s
 
 # Presenter Notes
 
