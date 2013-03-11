@@ -7,6 +7,8 @@
 
 # Presenter Notes
 
+- Lots of links, worth exploring if you're interested
+- Several good companies in the space, Enthought and Continuum Analytics
 - Pycon
     - Lots of Pycon 2012 talks (see links on pinboard)
     - Pycon 2013 talks
