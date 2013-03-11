@@ -284,13 +284,11 @@
                 
                     <section class="slide-content"><h2>HDF5</h2>
 <ul>
+<li>Built for scientific data</li>
+<li>Designed for big data</li>
 <li>Hierarchical format</li>
-<li>Designed for big data<ul>
-<li>30 columns and 1 million entries using ~ 13 MB</li>
-</ul>
-</li>
-<li>Fast parallel/random/sequential access</li>
-<li>Portable format</li>
+<li>Fast parallel/random access</li>
+<li>Portable binary format</li>
 <li>Easy to discover/crawl structure</li>
 </ul>
 </section>
@@ -299,8 +297,18 @@
                     <section>
                     
                         <ul>
-<li>Usable from lots of languages, C/Java/etc.</li>
+<li>Started by a bunch of smart supercomputing guys<ul>
+<li>Version 5 in 1998</li>
+</ul>
+</li>
+<li>Built on lots of limitations of hdf4</li>
+<li>Lots of compression/chunking available:<ul>
+<li>30 columns and 1 million entries using ~ 13 MB</li>
+</ul>
+</li>
+<li>Usable from lots of languages, C/Java/Fortran</li>
 <li>Mostly C, not RDBMS replacement</li>
+<li>Very active despite being</li>
 </ul>
                     
                     </section>
@@ -319,8 +327,9 @@
 <ul>
 <li>Read/write HDF5 files</li>
 <li>No concurrency</li>
-<li>NumPy to boost performance (in memory buffers)</li>
+<li>NumPy to boost performance</li>
 <li>Think ORM for HDF5</li>
+<li>More comprehensive than h5py</li>
 </ul>
 </section>
                 
@@ -330,8 +339,8 @@
                         <ul>
 <li>Built for big data</li>
 <li>Not a replacement for relational DB, more like companion</li>
+<li>Tools being aware of NumPy avoids copying to Python datatypes first</li>
 <li>Great community/developer support</li>
-<li>Read NumPy or Python lists</li>
 </ul>
                     
                     </section>
@@ -372,10 +381,17 @@
 <li>Python bindings to Qt toolkit</li>
 <li>Cross-platform</li>
 <li>Includes GUI, network, XML, SQL, etc.</li>
-</ul></section>
+</ul>
+</section>
                 
                 <div class="presenter_notes">
                     <section>
+                    
+                        <ul>
+<li>Qt is old and hardened, first release 1992</li>
+<li>PyQt first released around 1998</li>
+<li>Beware of licenses; PySide is LGPL, PyQt is GPL</li>
+</ul>
                     
                     </section>
                 </div>
@@ -401,9 +417,10 @@
                     <section>
                     
                         <ul>
-<li>PySide is LGPL, PyQt is GPL</li>
-<li>PyQt/PyQwt can feel a bit awkward at times b/c they wrap C++ code almost
-  directly</li>
+<li>Stable, but not a lot of dev. activity</li>
+<li>Recommending use of pyqtgraph for future</li>
+<li>PyQt/PyQwt can feel a bit awkward at times b/c they wrap C++ code with
+  automated tools</li>
 </ul>
                     
                     </section>
@@ -433,6 +450,8 @@
 <li>Controller part is where things get exciting, unique to Python</li>
 <li>Base of any scientific app in Python</li>
 <li>Lots of incarnations of an array libraries in Python, NumPy learned from them</li>
+<li>NumPy is everywhere, lots of tools use it directly to avoid intermediate
+  data types (pandas/pytables)</li>
 <li>In-memory</li>
 <li>Written in C/Python</li>
 </ul>
