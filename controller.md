@@ -72,7 +72,7 @@
     >>> x
     array([1, 1, 2])
 
-- copy vs. view
+- view vs. copy
 
 # Presenter Notes
 

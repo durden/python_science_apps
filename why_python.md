@@ -10,14 +10,12 @@
 
 - Focus on reasons not usually talked about
 - Obvious:
-    - Open source/great tools
-    - Runs everywhere (Windows/OS X/*nix)
+    - Open source/tools/(Windows/OS X/nix)
 - Works with C/C++/Fortran
-- Other VMs/platforms
-    - IronPython/Jython
+- Other VMs/platforms (IronPython/Jython)
 - Clients ask for it!
-- People are solving big problems with Python
 - Space, Weather, Model molecules
+- Lots of stuff is IO bound, not CPU
 
 --------------------------------------------------
 
