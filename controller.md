@@ -22,10 +22,14 @@
 
 ## NumPy
 
+### - Pure python
     !python
     >>> x = range(10000)
     >>> %timeit [item + 1 for item in x]
     1000 loops, best of 3: 437 us per loop
+
+### - NumPy
+    !python
     >>> x = numpy.arange(10000)
     >>> %timeit x + 1
     100000 loops, best of 3: 13.9 us per loop
