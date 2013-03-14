@@ -408,6 +408,7 @@
 				currentSlideNumber += e.shiftKey ? -1 : 1;
 				goToSlide(currentSlideNumber);
 			break;
+            case 78: // n for presenter
             case 80: // p for presenter
                 presenterWin = open(window.location.pathname + '?presenter=1'
                                     + "&full"
