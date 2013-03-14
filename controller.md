@@ -149,7 +149,7 @@
 
 ## Pandas
 
-- File size: 208052 bytes (203.18 kb, 0.20 mb)
+- File size: ~ 203KB (208052 bytes)
 - 26 columns
 - 1000 rows
 - pandas.read_csv: 0.56s
