@@ -5,9 +5,6 @@
 
 # Presenter Notes
 
+- This is middle of conference so how about I introduce the future?
 - Let's talk about building a desktop app, those still exist right?
 - Not all of us are in the cloud yet!
-- This is a TOUR, not comprehensive
-- Lots of good stuff will be missed
-- This isn't a 'how' talk, it's more of a 'where' talk
-- Lots of links at the end, worth exploring if you're interested
