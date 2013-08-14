@@ -28,12 +28,9 @@
                     <section>
                     
                         <ul>
+<li>This is middle of conference so how about I introduce the future?</li>
 <li>Let's talk about building a desktop app, those still exist right?</li>
 <li>Not all of us are in the cloud yet!</li>
-<li>This is a TOUR, not comprehensive</li>
-<li>Lots of good stuff will be missed</li>
-<li>This isn't a 'how' talk, it's more of a 'where' talk</li>
-<li>Lots of links at the end, worth exploring if you're interested</li>
 </ul>
                     
                     </section>
@@ -81,10 +78,18 @@
 <li>Why Python</li>
 <li>Tools</li>
 <li>Sample app</li>
-</ul></section>
+</ul>
+</section>
                 
                 <div class="presenter_notes">
                     <section>
+                    
+                        <ul>
+<li>This is a TOUR, not comprehensive</li>
+<li>Lots of good stuff will be missed</li>
+<li>This isn't a 'how' talk, it's more of a 'where' talk</li>
+<li>Lots of links at the end, worth exploring if you're interested</li>
+</ul>
                     
                     </section>
                 </div>
@@ -385,6 +390,7 @@
                     <section>
                     
                         <ul>
+<li>General UI widgets; menubars, toolbars, etc.</li>
 <li>Qt is old and hardened, first release 1992</li>
 <li>PyQt first released around 1998</li>
 <li>Beware of licenses; PySide is LGPL, PyQt is GPL</li>
@@ -774,8 +780,6 @@
 <li>NumPy/Pandas/Scipy</li>
 </ul>
 </li>
-<li><a href="http://bit.ly/python_science_apps">http://bit.ly/python_science_apps</a></li>
-<li>Hack on!</li>
 </ul>
 </section>
                 
@@ -784,6 +788,136 @@
                     
                         <ul>
 <li>Lots of tools introduced in short time, let's review</li>
+</ul>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: deployment.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Deployment</h1></header>
+                
+                
+                    <section class="slide-content"><ul>
+<li>pip/requirements.txt</li>
+<li>PyInstaller</li>
+<li>py2exe</li>
+</ul>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <ul>
+<li>Too many choices</li>
+<li>pip is easy but could be tricky b/c end-users in my area don't like to get
+  into the command line and install tools</li>
+<li>Tough b/c users can always ugrade their own stuff and break things</li>
+</ul>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: deployment.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>PyInstaller</h1></header>
+                
+                
+                    <section class="slide-content"><ul>
+<li>Package app into nice executable</li>
+<li>Finds your dependencies automatically</li>
+<li>Explicit support for PyQt/Django/matplotlib</li>
+<li>Major improvements in Pyinstaller 2.x</li>
+<li>Customizable with hooks</li>
+</ul>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <ul>
+<li>Hook architecture to package in support for a custom app if needed </li>
+</ul>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: deployment.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>PyInstaller pitfalls</h1></header>
+                
+                
+                    <section class="slide-content"><ul>
+<li>Beware of<ul>
+<li>dynamic imports</li>
+<li>sys.path mods</li>
+</ul>
+</li>
+<li>No cross-compiles
+<a href="http://www.pyinstaller.org/wiki/SupportedPackages">http://www.pyinstaller.org/wiki/SupportedPackages</a></li>
+</ul>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <ul>
+<li>Can use hooks to tell about dynamic imports/sys.path issues</li>
+<li>pyqtgraph is big offender of dynamic imports</li>
+<li>Tries to dynamically import everything into single namespace for convience
+  but turns out to be a huge pain</li>
+<li>Pyinstaller doesn't see dynamic imports</li>
+</ul>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: demo.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Demo!</h1></header>
+                
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: practice.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Practice!</h1></header>
+                
+                
+                    <section class="slide-content"><ul>
+<li>Hack on sample project, fix bugs!</li>
+<li><a href="http://bit.ly/python_science_apps">http://bit.ly/python_science_apps</a></li>
+</ul>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <ul>
 <li>Created a sample app with problems to fix</li>
 <li>Sample oil data from data.gov</li>
 <li>Best way to learn is to have a problem and try to fix it</li>
