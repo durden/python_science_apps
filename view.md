@@ -9,6 +9,7 @@
 
 # Presenter Notes
 
+- General UI widgets; menubars, toolbars, etc.
 - Qt is old and hardened, first release 1992
 - PyQt first released around 1998
 - Beware of licenses; PySide is LGPL, PyQt is GPL

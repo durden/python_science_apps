@@ -80,3 +80,11 @@ can be executed with the following:
 
 You can view a live version of the presentation
 [here](http://durden.github.com/python_science_apps).
+
+### Specific versions of talk
+
+This talk has been given at different events and has evolved a bit depending on
+the available time.  See the correct tag for the version of the talk you are
+most interested in:
+    - [Pycon 2013](https://github.com/durden/python_science_apps/tree/pycon_2013)
+    - [PyTexas 2013](https://github.com/durden/python_science_apps/tree/pytexas_2013)
