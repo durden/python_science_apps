@@ -27,7 +27,23 @@
 # Presenter Notes
 
 - Stable, but not a lot of dev. activity
-- Recommending use of pyqtgraph for future
 - Not compatible with PySide?
 - PyQt/PyQwt can feel a bit awkward at times b/c they wrap C++ code with
   automated tools
+
+--------------------------------------------------
+
+# Pyqtgraph
+
+- Possible PyQwt replacement
+- Doesn't rely on Qwt
+    - Pure python (PyQt/Pyside/numpy)
+- 3D
+- Fast performance?
+
+# Presenter Notes
+
+- Recommending use of pyqtgraph for future
+- Docs claim very fast performance on part with PyQwt
+    - Haven't tested myself
+- Uses numpy and Qt GraphicsView under hood for performance
