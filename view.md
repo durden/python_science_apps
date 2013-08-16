@@ -33,7 +33,9 @@
 
 --------------------------------------------------
 
-# Pyqtgraph
+# View
+
+## Pyqtgraph
 
 - Possible PyQwt replacement
 - Doesn't rely on Qwt
